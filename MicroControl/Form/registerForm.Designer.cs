@@ -31,7 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMicroName = new System.Windows.Forms.TextBox();
+            this.btnNewMicro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -48,7 +49,7 @@
             // txtID
             // 
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtID.Location = new System.Drawing.Point(12, 38);
+            this.txtID.Location = new System.Drawing.Point(12, 36);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(71, 21);
@@ -61,25 +62,35 @@
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Location = new System.Drawing.Point(12, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 17);
+            this.label2.Size = new System.Drawing.Size(74, 17);
             this.label2.TabIndex = 0;
-            this.label2.Text = "ID";
+            this.label2.Text = "Micro Name";
             // 
-            // textBox1
+            // txtMicroName
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(12, 99);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(71, 21);
-            this.textBox1.TabIndex = 1;
+            this.txtMicroName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMicroName.Location = new System.Drawing.Point(12, 99);
+            this.txtMicroName.Name = "txtMicroName";
+            this.txtMicroName.Size = new System.Drawing.Size(228, 21);
+            this.txtMicroName.TabIndex = 1;
+            // 
+            // btnNewMicro
+            // 
+            this.btnNewMicro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewMicro.Location = new System.Drawing.Point(12, 126);
+            this.btnNewMicro.Name = "btnNewMicro";
+            this.btnNewMicro.Size = new System.Drawing.Size(228, 23);
+            this.btnNewMicro.TabIndex = 2;
+            this.btnNewMicro.Text = "SALVAR";
+            this.btnNewMicro.UseVisualStyleBackColor = true;
             // 
             // registerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(252, 240);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(252, 162);
+            this.Controls.Add(this.btnNewMicro);
+            this.Controls.Add(this.txtMicroName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label1);
@@ -100,6 +111,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMicroName;
+        private System.Windows.Forms.Button btnNewMicro;
     }
 }
