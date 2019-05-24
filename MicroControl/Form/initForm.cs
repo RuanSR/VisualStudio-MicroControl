@@ -13,6 +13,7 @@ namespace MicroControl
         private void btnLogarMicro_Click(object sender, EventArgs e)
         {
             new mainForm().ShowDialog();
+            
         }
         private void btnNewMicro_Click(object sender, EventArgs e)
         {
