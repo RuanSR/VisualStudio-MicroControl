@@ -36,7 +36,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnNewMicro = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtSuperPass = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -75,7 +75,7 @@
             this.txtMicroID.Location = new System.Drawing.Point(12, 91);
             this.txtMicroID.Name = "txtMicroID";
             this.txtMicroID.Size = new System.Drawing.Size(192, 21);
-            this.txtMicroID.TabIndex = 3;
+            this.txtMicroID.TabIndex = 0;
             // 
             // btnLogarMicro
             // 
@@ -84,7 +84,7 @@
             this.btnLogarMicro.Location = new System.Drawing.Point(12, 165);
             this.btnLogarMicro.Name = "btnLogarMicro";
             this.btnLogarMicro.Size = new System.Drawing.Size(192, 23);
-            this.btnLogarMicro.TabIndex = 4;
+            this.btnLogarMicro.TabIndex = 2;
             this.btnLogarMicro.Text = "LOGAR MICRO";
             this.btnLogarMicro.UseVisualStyleBackColor = true;
             this.btnLogarMicro.Click += new System.EventHandler(this.btnLogarMicro_Click);
@@ -105,7 +105,7 @@
             this.btnNewMicro.Location = new System.Drawing.Point(12, 213);
             this.btnNewMicro.Name = "btnNewMicro";
             this.btnNewMicro.Size = new System.Drawing.Size(192, 23);
-            this.btnNewMicro.TabIndex = 4;
+            this.btnNewMicro.TabIndex = 3;
             this.btnNewMicro.Text = "CADASTRAR MICRO";
             this.btnNewMicro.UseVisualStyleBackColor = true;
             this.btnNewMicro.Click += new System.EventHandler(this.btnNewMicro_Click);
@@ -120,14 +120,14 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "SUPER PASS";
             // 
-            // txtPass
+            // txtSuperPass
             // 
-            this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPass.Location = new System.Drawing.Point(12, 139);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.PasswordChar = '*';
-            this.txtPass.Size = new System.Drawing.Size(192, 21);
-            this.txtPass.TabIndex = 3;
+            this.txtSuperPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSuperPass.Location = new System.Drawing.Point(12, 139);
+            this.txtSuperPass.Name = "txtSuperPass";
+            this.txtSuperPass.PasswordChar = '*';
+            this.txtSuperPass.Size = new System.Drawing.Size(192, 21);
+            this.txtSuperPass.TabIndex = 1;
             // 
             // initForm
             // 
@@ -137,7 +137,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnNewMicro);
             this.Controls.Add(this.btnLogarMicro);
-            this.Controls.Add(this.txtPass);
+            this.Controls.Add(this.txtSuperPass);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtMicroID);
             this.Controls.Add(this.label3);
@@ -166,6 +166,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnNewMicro;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtPass;
+        private System.Windows.Forms.TextBox txtSuperPass;
     }
 }

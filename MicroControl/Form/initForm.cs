@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MicroControl
@@ -21,10 +14,9 @@ namespace MicroControl
         {
             new mainForm().ShowDialog();
         }
-
         private void btnNewMicro_Click(object sender, EventArgs e)
         {
-            new registerForm().ShowDialog();
+            new dialogAdminForm().ShowDialog();
         }
     }
 }

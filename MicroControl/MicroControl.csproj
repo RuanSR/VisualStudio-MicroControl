@@ -49,6 +49,12 @@
     <Compile Include="Class\Initializing.cs" />
     <Compile Include="Class\PathSys.cs" />
     <Compile Include="Class\Program.cs" />
+    <Compile Include="Form\dialogAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\dialogAdminForm.Designer.cs">
+      <DependentUpon>dialogAdminForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     <Compile Include="Form\registerForm.Designer.cs">
       <DependentUpon>registerForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form\dialogAdminForm.resx">
+      <DependentUpon>dialogAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\initForm.resx">
       <DependentUpon>initForm.cs</DependentUpon>
     </EmbeddedResource>
