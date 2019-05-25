@@ -7,6 +7,8 @@ namespace MCL
 {
     public class DB
     {
+        public string t;
+        public Micro micro = new Micro();
         IFirebaseClient client;
         IFirebaseConfig config = new FirebaseConfig
         {
@@ -45,6 +47,17 @@ namespace MCL
             };
             SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
             Micro result = response.ResultAs<Micro>();
+        }
+        public string GetMicro(string microName)
+        {
+            GetMicroServer(microName);
+            return t;
+        }
+        public async void GetMicroServer(string microName)
+        {
+            FirebaseResponse response = await client.GetTaskAsync("Micro/" + microName);
+            Micro micro = response.ResultAs<Micro>();
+            t = micro.NameMicro;
         }
     }
 }

@@ -9,5 +9,10 @@ namespace MCL
     public class AdminBase
     {
         public string SuperPass { get; set; }
+
+        public AdminBase()
+        {
+            SuperPass = "";
+        }
     }
 }

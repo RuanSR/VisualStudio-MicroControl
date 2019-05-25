@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MCL;
 
 namespace MicroControl
 {
     public partial class mainForm : Form
     {
-        public mainForm()
+        DB dataBase = new DB();
+        Micro micro = new Micro();
+        public mainForm(Micro micro = null)
         {
             InitializeComponent();
+            this.micro = dataBase.micro;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Text = micro.NameMicro;
         }
     }
 }

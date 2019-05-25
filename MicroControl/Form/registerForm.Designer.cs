@@ -42,7 +42,7 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 17);
+            this.label1.Size = new System.Drawing.Size(23, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "ID";
             // 
@@ -51,8 +51,7 @@
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtID.Location = new System.Drawing.Point(12, 36);
             this.txtID.Name = "txtID";
-            this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(71, 21);
+            this.txtID.Size = new System.Drawing.Size(71, 22);
             this.txtID.TabIndex = 1;
             // 
             // label2
@@ -62,7 +61,7 @@
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Location = new System.Drawing.Point(12, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 17);
+            this.label2.Size = new System.Drawing.Size(83, 18);
             this.label2.TabIndex = 0;
             this.label2.Text = "Micro Name";
             // 
@@ -71,7 +70,7 @@
             this.txtMicroName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMicroName.Location = new System.Drawing.Point(12, 99);
             this.txtMicroName.Name = "txtMicroName";
-            this.txtMicroName.Size = new System.Drawing.Size(228, 21);
+            this.txtMicroName.Size = new System.Drawing.Size(228, 22);
             this.txtMicroName.TabIndex = 1;
             // 
             // btnNewMicro
@@ -83,10 +82,11 @@
             this.btnNewMicro.TabIndex = 2;
             this.btnNewMicro.Text = "SALVAR";
             this.btnNewMicro.UseVisualStyleBackColor = true;
+            this.btnNewMicro.Click += new System.EventHandler(this.BtnNewMicro_Click);
             // 
             // registerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 162);
             this.Controls.Add(this.btnNewMicro);
@@ -94,7 +94,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

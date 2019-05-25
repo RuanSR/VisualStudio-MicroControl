@@ -14,20 +14,20 @@ namespace MicroControl
 
         private void BtnAutentication_Click(object sender, EventArgs e)
         {
-            dataBase = new DB();
-            if (dataBase.ConnectServer())
+            AdminBase = new AdminBase();
+            if (AdminBase.SuperPass.Equals(txtPass.Text))
             {
-
+                this.Hide();
+                this.Close();
+                this.Dispose();
+                new registerForm().ShowDialog();
             }
             else
             {
                 MessageBox.Show("Erro ao conectar-se com o servidor!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
-            this.Hide();
-            this.Close();
-            this.Dispose();
-            new registerForm().ShowDialog();
+
             
         }
         private void BtnCancel_Click(object sender, EventArgs e)
