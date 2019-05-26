@@ -34,6 +34,7 @@ namespace MicroControl
             //SÁMERDA DEU TRABALHO!\\
         private void MainForm_Load(object sender, EventArgs e)
         {
+            NotifyLoad();
             LoadData();
             timeUpdate.Start();
         }
@@ -87,6 +88,37 @@ namespace MicroControl
             {
                 MessageBox.Show("Erro em ao passar comando! "+ex.Message);
             }
+        }
+        private void NotifyLoad()
+        {
+            notifyIcon.BalloonTipTitle = "Micro Control";
+            notifyIcon.BalloonTipText = "Controle do Instrutor";
+            notifyIcon.Text = "Micro Control";
+        }
+        private void HideForm()
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(1000);
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon.Visible = false;
+            }
+        }
+        private void LblHide_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            notifyIcon.Visible = true;
+            notifyIcon.ShowBalloonTip(1000);
+        }
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            notifyIcon.Visible = false;
+            WindowState = FormWindowState.Normal;
         }
     }
 }

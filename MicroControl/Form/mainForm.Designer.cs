@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.lblHide = new System.Windows.Forms.Label();
             this.lblDisconnect = new System.Windows.Forms.Label();
             this.timeUpdate = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -132,6 +134,7 @@
             this.lblHide.Size = new System.Drawing.Size(33, 13);
             this.lblHide.TabIndex = 2;
             this.lblHide.Text = "Hide";
+            this.lblHide.Click += new System.EventHandler(this.LblHide_Click);
             // 
             // lblDisconnect
             // 
@@ -148,6 +151,13 @@
             // 
             this.timeUpdate.Interval = 5000;
             this.timeUpdate.Tick += new System.EventHandler(this.TimeUpdate_Tick);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "notifyIcon1";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
             // mainForm
             // 
@@ -190,5 +200,6 @@
         private System.Windows.Forms.Label lblHide;
         private System.Windows.Forms.Label lblDisconnect;
         private System.Windows.Forms.Timer timeUpdate;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }

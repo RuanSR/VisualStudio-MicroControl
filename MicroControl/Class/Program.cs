@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 using MicroControl.Class;
 
@@ -16,6 +14,9 @@ namespace MicroControl
         [STAThread]
         static void Main()
         {
+            RegistryKey reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run",true);
+            reg.SetValue("Micro Control", Application.ExecutablePath.ToString());
+
             PathSys pathSys = new PathSys();
             Initializing init = new Initializing();
             Application.EnableVisualStyles();
