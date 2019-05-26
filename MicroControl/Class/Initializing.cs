@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace MicroControl.Class
 {
     public class Initializing
     {
         private PathSys PathSys = new PathSys();
-        public void CheckPath()
+        public void CheckPath(string data)
         {
             if (!PathSys.CheckRootFolder())
             {
@@ -14,8 +13,17 @@ namespace MicroControl.Class
             }
             if (!PathSys.CheckSettingsFile())
             {
-                File.Create(PathSys.pathSettingsFile);
+                File.WriteAllText(PathSys.pathSettingsFile+@"\", data);
             }
+        }
+        public string[] Settings() {
+            string[] data_read = { File.ReadAllText(PathSys.pathSettingsFile) };
+            string[] data_file = null;
+            foreach (var item in data_read)
+            {
+                data_file = item.Split('|');
+            }
+            return data_file;
         }
     }
 }

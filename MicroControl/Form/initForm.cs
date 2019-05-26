@@ -20,12 +20,9 @@ namespace MicroControl
 
             if (dataBase.ConnectServer())
             {
-                //dataBase.ConnectServer();
-                //dataBase.GetMicroServer("MICRO_TESTE01");
-                //MessageBox.Show(dataBase.t);
-                new mainForm().ShowDialog();
-                //this.Hide();
-                //this.Close();
+                mainForm frm = new mainForm(txtMicroID.Text);
+                frm.Show();
+                this.Hide();
             }
             else
             {

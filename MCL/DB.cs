@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
@@ -7,8 +8,8 @@ namespace MCL
 {
     public class DB
     {
+        public Micro micro;
         public string t;
-        public Micro micro = new Micro();
         IFirebaseClient client;
         IFirebaseConfig config = new FirebaseConfig
         {
@@ -48,16 +49,15 @@ namespace MCL
             SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
             Micro result = response.ResultAs<Micro>();
         }
-        public string GetMicro(string microName)
+        public Micro GetMicro()
         {
-            GetMicroServer(microName);
-            return t;
+            return micro;
         }
-        public async void GetMicroServer(string microName)
+        public async Task<Micro> GetMicroServer(string microName)
         {
             FirebaseResponse response = await client.GetTaskAsync("Micro/" + microName);
-            Micro micro = response.ResultAs<Micro>();
-            t = micro.NameMicro;
+            micro = response.ResultAs<Micro>();
+            return micro;
         }
     }
 }
