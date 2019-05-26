@@ -146,6 +146,7 @@
             this.lblDisconnect.Size = new System.Drawing.Size(71, 13);
             this.lblDisconnect.TabIndex = 2;
             this.lblDisconnect.Text = "Disconnect";
+            this.lblDisconnect.Click += new System.EventHandler(this.LblDisconnect_Click);
             // 
             // timeUpdate
             // 
@@ -182,6 +183,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = ":: MICRO NAME HERE ::";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

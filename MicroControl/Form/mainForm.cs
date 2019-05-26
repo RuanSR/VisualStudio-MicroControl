@@ -2,12 +2,15 @@
 using System.Windows.Forms;
 using MCL;
 using MicroControl.Class;
+using System.Diagnostics;
+
 
 namespace MicroControl
 {
     public partial class mainForm : Form
     {
         Initializing initializing = new Initializing();
+        PathSys pathSys = new PathSys();
         Command cmd = new Command();
         DB dataBase;
         Micro micro;
@@ -80,6 +83,16 @@ namespace MicroControl
                 {
                     MessageBox.Show(micro.ComplementMicro);
                     dataBase.UpdateMicro(txtID.Text, micro);
+                }else if (micro.CommandMicro == 99)
+                {
+                    using (Process initUpdate = new Process())
+                    {
+                        dataBase.UpdateMicro(txtID.Text, micro);
+                        initUpdate.StartInfo.FileName = pathSys.pathUpdateProcess;
+                        initUpdate.StartInfo.CreateNoWindow = true;
+                        initUpdate.Start();
+                        Application.Exit();
+                    }
                 }
                 initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, 0));
                 timeUpdate.Start();
@@ -91,34 +104,44 @@ namespace MicroControl
         }
         private void NotifyLoad()
         {
-            notifyIcon.BalloonTipTitle = "Micro Control";
-            notifyIcon.BalloonTipText = "Controle do Instrutor";
+            //notifyIcon.BalloonTipTitle = "Micro Control";
+            //notifyIcon.BalloonTipText = "Controle do Instrutor";
             notifyIcon.Text = "Micro Control";
         }
         private void HideForm()
         {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                this.Hide();
-                notifyIcon.Visible = true;
-                notifyIcon.ShowBalloonTip(1000);
-            }
-            else if (FormWindowState.Normal == this.WindowState)
-            {
-                notifyIcon.Visible = false;
-            }
+            this.Hide();
+            notifyIcon.Visible = true;
+            //notifyIcon.ShowBalloonTip(1000);
+            //if (WindowState == FormWindowState.Minimized)
+            //{
+            //    this.Hide();
+            //    notifyIcon.Visible = true;
+            //    notifyIcon.ShowBalloonTip(1000);
+            //}
+            //else if (FormWindowState.Normal == this.WindowState)
+            //{
+            //    notifyIcon.Visible = false;
+            //}
         }
         private void LblHide_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(1000);
+            HideForm();
         }
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
             notifyIcon.Visible = false;
             WindowState = FormWindowState.Normal;
+        }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            HideForm();
+        }
+        private void LblDisconnect_Click(object sender, EventArgs e)
+        {
+            timeUpdate.Stop();
+            System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
         }
     }
 }

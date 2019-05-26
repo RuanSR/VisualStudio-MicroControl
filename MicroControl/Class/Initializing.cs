@@ -11,6 +11,10 @@ namespace MicroControl.Class
             {
                 Directory.CreateDirectory(PathSys.pathRootFolder);
             }
+            if (!PathSys.CheckPathFolderUpdate())
+            {
+                Directory.CreateDirectory(PathSys.pathFolderUpdate);
+            }
             if (!PathSys.CheckSettingsFile())
             {
                 File.WriteAllText(PathSys.pathSettingsFile, data);
