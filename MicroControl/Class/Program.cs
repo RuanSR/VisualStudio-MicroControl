@@ -17,12 +17,13 @@ namespace MicroControl
         static void Main()
         {
             PathSys pathSys = new PathSys();
-            Initializing init;
+            Initializing init = new Initializing();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (pathSys.CheckSettingsFile())
+
+            init.CheckPath("0|0|0|null");
+            if (init.Settings()[0] != "0")
             {
-                init = new Initializing();
                 Application.Run(new mainForm(init.Settings()[0]));
             }
             else

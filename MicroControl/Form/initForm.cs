@@ -17,7 +17,6 @@ namespace MicroControl
         {
             dataBase = new DB();
             micro = new Micro();
-
             if (dataBase.ConnectServer())
             {
                 mainForm frm = new mainForm(txtMicroID.Text);

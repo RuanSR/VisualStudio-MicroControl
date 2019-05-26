@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MCL;
 using MicroControl.Class;
@@ -9,6 +8,7 @@ namespace MicroControl
     public partial class mainForm : Form
     {
         Initializing initializing = new Initializing();
+        Command cmd = new Command();
         DB dataBase;
         Micro micro;
         string microName;
@@ -35,19 +35,57 @@ namespace MicroControl
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadData();
+            timeUpdate.Start();
         }
         private async void LoadData()
         {
-            if (dataBase.ConnectServer())
+            try
             {
-                var micro = await dataBase.GetMicroServer(microName);
-                this.micro = micro;
-                this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
-                txtID.Text = micro.IDMicro.ToString(); ;
-                txtMicroName.Text = micro.NameMicro;
-                txtStatus.Text = micro.StatusMicro.ToString();
-                txtLastCommand.Text = micro.CommandMicro.ToString();
-                initializing.CheckPath(string.Format("{0}|{1}|{2}|{3}",micro.IDMicro,micro.NameMicro,micro.StatusMicro,micro.CommandMicro));
+                if (dataBase.ConnectServer())
+                {
+                    var micro = await dataBase.GetMicroServer(microName);
+                    this.micro = micro;
+                    this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+                    txtID.Text = micro.IDMicro.ToString(); ;
+                    txtMicroName.Text = micro.NameMicro;
+                    txtStatus.Text = micro.StatusMicro.ToString();
+                    txtLastCommand.Text = micro.CommandMicro.ToString();
+                    initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, micro.CommandMicro));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro em LoadData: "+ex.Message);
+                this.Close();
+            }
+        }
+        private void TimeUpdate_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                timeUpdate.Stop();
+                LoadData();
+                if (micro.CommandMicro == 1)
+                {
+                    cmd.SET_BG(micro.ComplementMicro, true);
+                    dataBase.UpdateMicro(txtID.Text, micro);
+                }
+                else if(micro.CommandMicro == 2)
+                {
+                    cmd.SHUTDOWN();
+                    dataBase.UpdateMicro(txtID.Text, micro);
+                }
+                else if(micro.CommandMicro == 3)
+                {
+                    MessageBox.Show(micro.ComplementMicro);
+                    dataBase.UpdateMicro(txtID.Text, micro);
+                }
+                initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, 0));
+                timeUpdate.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro em ao passar comando! "+ex.Message);
             }
         }
     }

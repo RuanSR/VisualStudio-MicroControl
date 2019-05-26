@@ -13,7 +13,6 @@ namespace MicroControl.Class
             pathRootFolder = @"C:\R.S.R Software\Micro Control";
             pathSettingsFile = @"C:\R.S.R Software\Micro Control\settings";
         }
-
         public bool CheckRootFolder()
         {
             if (File.Exists(pathRootFolder))
@@ -28,6 +27,17 @@ namespace MicroControl.Class
         public bool CheckSettingsFile()
         {
             if (File.Exists(pathSettingsFile))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool ExistDataSettingsFile()
+        {
+            if (string.IsNullOrEmpty(File.ReadAllText(pathSettingsFile)))
             {
                 return true;
             }

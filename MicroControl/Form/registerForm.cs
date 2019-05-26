@@ -17,7 +17,7 @@ namespace MicroControl
             dataBase = new DB();
             if (dataBase.ConnectServer())
             {
-                dataBase.InsertMicro(int.Parse(txtID.Text), txtMicroName.Text, 0, 0, "null");
+                dataBase.InsertMicro(txtID.Text, txtMicroName.Text, 0, 0, "null");
                 MessageBox.Show("Sucesso no cadastro!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }

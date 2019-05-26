@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblHide = new System.Windows.Forms.Label();
             this.lblDisconnect = new System.Windows.Forms.Label();
+            this.timeUpdate = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -142,6 +144,11 @@
             this.lblDisconnect.TabIndex = 2;
             this.lblDisconnect.Text = "Disconnect";
             // 
+            // timeUpdate
+            // 
+            this.timeUpdate.Interval = 5000;
+            this.timeUpdate.Tick += new System.EventHandler(this.TimeUpdate_Tick);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,5 +189,6 @@
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label lblHide;
         private System.Windows.Forms.Label lblDisconnect;
+        private System.Windows.Forms.Timer timeUpdate;
     }
 }

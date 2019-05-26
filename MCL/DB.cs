@@ -36,7 +36,7 @@ namespace MCL
                 SuperPass = pass
             };
         }
-        public async void InsertMicro(int IDMicro, string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
+        public async void InsertMicro(string IDMicro, string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
         {
             var data = new Micro
             {
@@ -49,15 +49,16 @@ namespace MCL
             SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
             Micro result = response.ResultAs<Micro>();
         }
-        public Micro GetMicro()
-        {
-            return micro;
-        }
         public async Task<Micro> GetMicroServer(string microName)
         {
             FirebaseResponse response = await client.GetTaskAsync("Micro/" + microName);
             micro = response.ResultAs<Micro>();
             return micro;
+        }
+        public async void UpdateMicro(string ID, Micro micro)
+        {
+            micro.CommandMicro = 0;
+            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
         }
     }
 }

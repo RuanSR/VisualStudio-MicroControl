@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Command.cs" />
     <Compile Include="Class\Initializing.cs" />
     <Compile Include="Class\PathSys.cs" />
     <Compile Include="Class\Program.cs" />

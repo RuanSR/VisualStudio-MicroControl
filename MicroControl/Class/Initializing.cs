@@ -13,8 +13,19 @@ namespace MicroControl.Class
             }
             if (!PathSys.CheckSettingsFile())
             {
-                File.WriteAllText(PathSys.pathSettingsFile+@"\", data);
+                File.WriteAllText(PathSys.pathSettingsFile, data);
             }
+            else
+            {
+                if (File.ReadAllText(PathSys.pathSettingsFile) == "")
+                {
+                    File.WriteAllText(PathSys.pathSettingsFile, data);
+                }
+            }
+        }
+        public void WriteDataLogin(string data)
+        {
+            File.WriteAllText(PathSys.pathSettingsFile, data);
         }
         public string[] Settings() {
             string[] data_read = { File.ReadAllText(PathSys.pathSettingsFile) };
