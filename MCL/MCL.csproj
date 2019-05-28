@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AdminBase.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="DBInfo.cs" />
     <Compile Include="Micro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

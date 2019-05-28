@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using FireSharp.Config;
 using FireSharp.Interfaces;
@@ -8,8 +9,8 @@ namespace MCL
 {
     public class DB
     {
+        DataTable dataTable;
         public Micro micro;
-        public string t;
         IFirebaseClient client;
         IFirebaseConfig config = new FirebaseConfig
         {
@@ -59,6 +60,45 @@ namespace MCL
         {
             micro.CommandMicro = 0;
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
+        }
+        public DataTable ReturnTable(DataTable dt)
+        {
+            this.dataTable = dt;
+            GetAllMicro();
+            return dt;
+        }
+        public async void GetAllMicro()
+        {
+            int i = 0;
+            FirebaseResponse resp1 = await client.GetTaskAsync("Admin/db_info");
+            DBInfo db_info = resp1.ResultAs<DBInfo>();
+            int cnt = Convert.ToInt32(db_info.count);
+
+            while (true)
+            {
+                if (i == cnt)
+                {
+                    break;
+                }
+                i++;
+                try
+                {
+                    FirebaseResponse resp2 = await client.GetTaskAsync("Micro/" + i);
+                    Micro micro = resp2.ResultAs<Micro>();
+
+                    DataRow row = dataTable.NewRow();
+                    row["ID"] = micro.IDMicro;
+                    row["Micro"] = micro.NameMicro;
+                    row["Status"] = micro.StatusMicro;
+
+                    dataTable.Rows.Add(row);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
     }
 }
