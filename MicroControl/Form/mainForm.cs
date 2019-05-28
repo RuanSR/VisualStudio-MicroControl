@@ -69,17 +69,18 @@ namespace MicroControl
             {
                 timeUpdate.Stop();
                 LoadData();
+
                 if (micro.CommandMicro == 1)
-                {
-                    cmd.SET_BG(micro.ComplementMicro, true);
-                    dataBase.UpdateMicro(txtID.Text, micro);
-                }
-                else if(micro.CommandMicro == 2)
                 {
                     cmd.SHUTDOWN();
                     dataBase.UpdateMicro(txtID.Text, micro);
                 }
-                else if(micro.CommandMicro == 3)
+                else if (micro.CommandMicro == 2)
+                {
+                    cmd.SET_BG(micro.ComplementMicro, true);
+                    dataBase.UpdateMicro(txtID.Text, micro);
+                }
+                else if (micro.CommandMicro == 3)
                 {
                     MessageBox.Show(micro.ComplementMicro);
                     dataBase.UpdateMicro(txtID.Text, micro);

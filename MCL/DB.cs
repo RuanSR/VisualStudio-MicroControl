@@ -39,16 +39,39 @@ namespace MCL
         }
         public async void InsertMicro(string IDMicro, string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
         {
-            var data = new Micro
+            ConnectServer();
+            FirebaseResponse resp = await client.GetTaskAsync("Admin/db_info");
+            var db_info = resp.ResultAs<DBInfo>();
+
+            var micro = new Micro
             {
-                IDMicro = IDMicro,
+                IDMicro = (int.Parse(db_info.count.ToString())+1).ToString(),
                 NameMicro = nomeMicro,
                 StatusMicro = statusMicro,
                 CommandMicro = commandMicro,
                 ComplementMicro = complementMicro
             };
-            SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
+
+            SetResponse response = await client.SetTaskAsync("Micro/" + micro.IDMicro, micro);
             Micro result = response.ResultAs<Micro>();
+
+            var obj = new DBInfo
+            {
+                count = micro.IDMicro
+            };
+
+            SetResponse response1 = await client.SetTaskAsync("Admin/db_info", obj);
+
+            //var data = new Micro
+            //{
+            //    IDMicro = IDMicro,
+            //    NameMicro = nomeMicro,
+            //    StatusMicro = statusMicro,
+            //    CommandMicro = commandMicro,
+            //    ComplementMicro = complementMicro
+            //};
+            //SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
+            //Micro result = response.ResultAs<Micro>();
         }
         public async Task<Micro> GetMicroServer(string microName)
         {
@@ -61,13 +84,17 @@ namespace MCL
             micro.CommandMicro = 0;
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
         }
-        public DataTable ReturnTable(DataTable dt)
+        public async void SendCommand(string ID, Micro micro)
+        {
+            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
+        }
+        public DataTable GetAllMicro(DataTable dt)
         {
             this.dataTable = dt;
-            GetAllMicro();
+            LoadAllMicro();
             return dt;
         }
-        public async void GetAllMicro()
+        private async void LoadAllMicro()
         {
             int i = 0;
             FirebaseResponse resp1 = await client.GetTaskAsync("Admin/db_info");

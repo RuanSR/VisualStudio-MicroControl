@@ -97,6 +97,7 @@
             this.gridViewMicro.RowHeadersVisible = false;
             this.gridViewMicro.Size = new System.Drawing.Size(395, 184);
             this.gridViewMicro.TabIndex = 0;
+            this.gridViewMicro.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewMicro_CellContentClick);
             // 
             // frmPrincipal
             // 

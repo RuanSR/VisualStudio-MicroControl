@@ -1,12 +1,6 @@
 ﻿using MCL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MicroControlAdmin
@@ -26,6 +20,17 @@ namespace MicroControlAdmin
             LoadDataGridView();
             LoadMicro();
         }
+        private void GridViewMicro_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Micro micro = new Micro();
+
+            micro.IDMicro = gridViewMicro.Rows[e.RowIndex].Cells[0].Value.ToString();
+            micro.NameMicro = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
+            micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[2].Value.ToString());
+            micro.CommandMicro = 0;
+            micro.ComplementMicro = "null";
+            new frmCommand(micro).ShowDialog();
+        }
         private void LoadDataGridView()
         {
             dt.Columns.Add("ID");
@@ -39,17 +44,12 @@ namespace MicroControlAdmin
             dataBase = new DB();
             dataBase.ConnectServer();
             dt.Clear();
-            dt = dataBase.ReturnTable(dt);
+            dt = dataBase.GetAllMicro(dt);
 
         }
         private void Pesquisa(string pesquisa)
         {
 
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            LoadMicro();
         }
     }
 }
