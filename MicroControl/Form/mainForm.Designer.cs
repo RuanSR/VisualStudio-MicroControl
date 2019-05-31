@@ -42,6 +42,9 @@
             this.lblDisconnect = new System.Windows.Forms.Label();
             this.timeUpdate = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -91,9 +94,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 104);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 18);
+            this.label3.Size = new System.Drawing.Size(72, 18);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Last Command";
+            this.label3.Text = "Command";
             // 
             // txtLastCommand
             // 
@@ -129,7 +132,7 @@
             this.lblHide.AutoSize = true;
             this.lblHide.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblHide.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHide.Location = new System.Drawing.Point(108, 186);
+            this.lblHide.Location = new System.Drawing.Point(101, 7);
             this.lblHide.Name = "lblHide";
             this.lblHide.Size = new System.Drawing.Size(33, 13);
             this.lblHide.TabIndex = 2;
@@ -141,7 +144,7 @@
             this.lblDisconnect.AutoSize = true;
             this.lblDisconnect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblDisconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDisconnect.Location = new System.Drawing.Point(143, 186);
+            this.lblDisconnect.Location = new System.Drawing.Point(133, 7);
             this.lblDisconnect.Name = "lblDisconnect";
             this.lblDisconnect.Size = new System.Drawing.Size(71, 13);
             this.lblDisconnect.TabIndex = 2;
@@ -160,11 +163,33 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtLog);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(97, 53);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(107, 146);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "LOG";
+            // 
+            // txtLog
+            // 
+            this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLog.Location = new System.Drawing.Point(3, 16);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.Size = new System.Drawing.Size(101, 127);
+            this.txtLog.TabIndex = 0;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 207);
+            this.ClientSize = new System.Drawing.Size(216, 208);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblDisconnect);
             this.Controls.Add(this.lblHide);
             this.Controls.Add(this.txtStatus);
@@ -184,6 +209,8 @@
             this.Text = ":: MICRO NAME HERE ::";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +230,7 @@
         private System.Windows.Forms.Label lblDisconnect;
         private System.Windows.Forms.Timer timeUpdate;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtLog;
     }
 }

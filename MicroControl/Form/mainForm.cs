@@ -21,19 +21,6 @@ namespace MicroControl
             dataBase = new DB();
             this.microName = microName;
         }
-        //public async void testy()
-        //{
-        //    var micro = await dataBase.GetMicroServer("1");
-        //    this.micro = micro;
-        //    if (micro != null)
-        //    {
-        //        MessageBox.Show("SUCESSO!");
-        //        this.micro = micro;
-        //        this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
-        //        this.Load += MainForm_Load;
-        //    }
-        //}
-
             //SÁMERDA DEU TRABALHO!\\
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -59,8 +46,11 @@ namespace MicroControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro em LoadData: "+ex.Message);
-                this.Close();
+                //MessageBox.Show("Erro em LoadData: "+ex.Message);
+                dataBase.UpdateMicro(txtID.Text, micro);
+                txtLog.AppendText("ERROR : CONNECTION \n"+ex.Message);
+                txtLastCommand.Text = "-" + micro.CommandMicro.ToString();
+                timeUpdate.Start();
             }
         }
         private void TimeUpdate_Tick(object sender, EventArgs e)
@@ -100,7 +90,11 @@ namespace MicroControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro em ao passar comando! "+ex.Message);
+                //MessageBox.Show("Erro em ao passar comando! "+ex.Message);
+                dataBase.UpdateMicro(txtID.Text, micro);
+                txtLog.AppendText("ERROR : COMMAND \n" + ex.Message);
+                txtLastCommand.Text = "-"+micro.CommandMicro.ToString();
+                timeUpdate.Start();
             }
         }
         private void NotifyLoad()
@@ -143,6 +137,7 @@ namespace MicroControl
         {
             timeUpdate.Stop();
             System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
+            new initForm().Show();
         }
     }
 }

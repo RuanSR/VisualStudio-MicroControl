@@ -58,10 +58,22 @@ namespace MicroControlAdmin
         {
             if (groupComplement.Enabled)
             {
-                micro.ComplementMicro = txtComplement.Text;
+                if (txtComplement.Text != string.Empty)
+                {
+                    micro.ComplementMicro = txtComplement.Text;
+                    dataBase.SendCommand(micro.IDMicro, micro);
+                    MessageBox.Show("COMANDO ENVIADO!");
+                }
+                else
+                {
+                    MessageBox.Show("PREENCHA O CAMPO COMPLEMENT!");
+                }
             }
-            dataBase.SendCommand(micro.IDMicro,micro);
-            MessageBox.Show("COMANDO ENVIADO!");
+            else
+            {
+                dataBase.SendCommand(micro.IDMicro, micro);
+                MessageBox.Show("COMANDO ENVIADO!");
+            }
         }
         private void LoadObjectMicro()
         {

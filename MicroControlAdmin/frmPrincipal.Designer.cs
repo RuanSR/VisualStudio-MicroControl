@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbTodos = new System.Windows.Forms.RadioButton();
-            this.txtPesquisa = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridViewMicro = new System.Windows.Forms.DataGridView();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnCommandAll = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMicro)).BeginInit();
@@ -40,46 +40,25 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbTodos);
-            this.groupBox1.Controls.Add(this.txtPesquisa);
+            this.groupBox1.Controls.Add(this.btnCommandAll);
+            this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(401, 74);
+            this.groupBox1.Size = new System.Drawing.Size(401, 47);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "PESQUISA";
-            // 
-            // rbTodos
-            // 
-            this.rbTodos.AutoSize = true;
-            this.rbTodos.Checked = true;
-            this.rbTodos.Location = new System.Drawing.Point(3, 48);
-            this.rbTodos.Name = "rbTodos";
-            this.rbTodos.Size = new System.Drawing.Size(65, 20);
-            this.rbTodos.TabIndex = 1;
-            this.rbTodos.TabStop = true;
-            this.rbTodos.Text = "Todos";
-            this.rbTodos.UseVisualStyleBackColor = true;
-            // 
-            // txtPesquisa
-            // 
-            this.txtPesquisa.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtPesquisa.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPesquisa.Location = new System.Drawing.Point(3, 19);
-            this.txtPesquisa.Name = "txtPesquisa";
-            this.txtPesquisa.Size = new System.Drawing.Size(395, 23);
-            this.txtPesquisa.TabIndex = 0;
+            this.groupBox1.Text = "OPTIONS";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.gridViewMicro);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(0, 74);
+            this.groupBox2.Location = new System.Drawing.Point(0, 47);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(401, 206);
+            this.groupBox2.Size = new System.Drawing.Size(401, 233);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "MICRO";
@@ -95,9 +74,31 @@
             this.gridViewMicro.Name = "gridViewMicro";
             this.gridViewMicro.ReadOnly = true;
             this.gridViewMicro.RowHeadersVisible = false;
-            this.gridViewMicro.Size = new System.Drawing.Size(395, 184);
+            this.gridViewMicro.Size = new System.Drawing.Size(395, 211);
             this.gridViewMicro.TabIndex = 0;
             this.gridViewMicro.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewMicro_CellContentClick);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Location = new System.Drawing.Point(6, 18);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(98, 23);
+            this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.Text = "UPDATE";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // btnCommandAll
+            // 
+            this.btnCommandAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCommandAll.Location = new System.Drawing.Point(110, 18);
+            this.btnCommandAll.Name = "btnCommandAll";
+            this.btnCommandAll.Size = new System.Drawing.Size(147, 23);
+            this.btnCommandAll.TabIndex = 0;
+            this.btnCommandAll.Text = "COMMAND ALL";
+            this.btnCommandAll.UseVisualStyleBackColor = true;
+            this.btnCommandAll.Click += new System.EventHandler(this.BtnCommandAll_Click);
             // 
             // frmPrincipal
             // 
@@ -113,7 +114,6 @@
             this.Text = ":: MICRO CONTROL ADMIN ::";
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMicro)).EndInit();
             this.ResumeLayout(false);
@@ -124,9 +124,9 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbTodos;
-        private System.Windows.Forms.TextBox txtPesquisa;
         private System.Windows.Forms.DataGridView gridViewMicro;
+        private System.Windows.Forms.Button btnCommandAll;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
 

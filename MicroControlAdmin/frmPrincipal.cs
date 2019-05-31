@@ -45,9 +45,14 @@ namespace MicroControlAdmin
             dataBase.ConnectServer();
             dt.Clear();
             dt = dataBase.GetAllMicro(dt);
-
         }
-        private void Pesquisa(string pesquisa)
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            LoadMicro();
+        }
+
+        private void BtnCommandAll_Click(object sender, EventArgs e)
         {
 
         }
