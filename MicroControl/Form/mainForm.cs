@@ -14,12 +14,12 @@ namespace MicroControl
         Command cmd = new Command();
         DB dataBase;
         Micro micro;
-        string microName;
-        public mainForm(string microName = null)
+        string microID;
+        public mainForm(string microID = null)
         {
             InitializeComponent();
             dataBase = new DB();
-            this.microName = microName;
+            this.microID = microID;
         }
             //SÁMERDA DEU TRABALHO!\\
         private void MainForm_Load(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace MicroControl
             {
                 if (dataBase.ConnectServer())
                 {
-                    var micro = await dataBase.GetMicroServer(microName);
+                    var micro = await dataBase.GetMicroServer(microID);
                     this.micro = micro;
                     this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
                     txtID.Text = micro.IDMicro.ToString(); ;
