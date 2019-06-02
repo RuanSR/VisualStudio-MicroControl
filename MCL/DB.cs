@@ -64,9 +64,19 @@ namespace MCL
             micro = response.ResultAs<Micro>();
             return micro;
         }
+        public async Task<DBInfo> GetIDServer()
+        {
+            FirebaseResponse response = await client.GetTaskAsync("Admin/db_info");
+            dbInfo = response.ResultAs<DBInfo>();
+            return dbInfo;
+        }
         public async void UpdateMicro(Micro micro)
         {
             micro.CommandMicro = 0;
+            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
+        }
+        public async void UpdateMicroInfo(Micro micro)
+        {
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
         public async void SendCommand(string ID, Micro micro)
@@ -111,12 +121,12 @@ namespace MCL
                 }
             }
         }
-        public async Task<DBInfo> GetDBInfo()
+        public async Task<DBInfo> GetDBInfo(DBInfo dbInfo)
         {
             FirebaseResponse resp = await client.GetTaskAsync("Admin/db_info");
             var db_info = resp.ResultAs<DBInfo>();
-            //this.dbInfo = db_info;
-            return db_info;
+            dbInfo = db_info;
+            return dbInfo;
         }
     }
 }

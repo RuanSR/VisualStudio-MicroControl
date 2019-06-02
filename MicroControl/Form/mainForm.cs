@@ -13,12 +13,14 @@ namespace MicroControl
         PathSys pathSys = new PathSys();
         Command cmd = new Command();
         DB dataBase;
+        DBInfo dbInfo;
         Micro micro;
         //string microID;
         public mainForm()
         {
             InitializeComponent();
             dataBase = new DB();
+            
             //this.microID = microID;
         }
             //SÁMERDA DEU TRABALHO!\\
@@ -26,7 +28,6 @@ namespace MicroControl
         {
             NotifyLoad();
             AutenticationServer();
-            //LoadData();
         }
         private async void LoadData()
         {
@@ -58,7 +59,7 @@ namespace MicroControl
             try
             {
                 timeUpdate.Stop();
-                AutenticationServer();
+                GetDataMicroInfo();
 
                 if (micro.CommandMicro == 1)
                 {
@@ -139,23 +140,31 @@ namespace MicroControl
             System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
             new initForm().Show();
         }
-
         async void AutenticationServer()
         {
+            var db_info = await dataBase.GetIDServer();
+            this.dbInfo = db_info;
+
             int i = 1;
-            int count = 2;
+            int count = dbInfo.count;
             while (i <= count)
             {
                 var micro = await dataBase.GetMicroServer(i);
                 this.micro = micro;
                 if (!this.micro.ConnectedMicro)
                 {
+                    this.micro.NameMicro = GetPcName();
+                    this.micro.ConnectedMicro = true;
+                    dataBase.UpdateMicroInfo(this.micro);
+
                     this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
-                    txtID.Text = micro.IDMicro.ToString(); ;
+                    txtID.Text = micro.IDMicro.ToString();
                     txtMicroName.Text = micro.NameMicro;
                     txtStatus.Text = micro.StatusMicro.ToString();
                     txtLastCommand.Text = micro.CommandMicro.ToString();
                     lblConn.ForeColor = Color.Green;
+                   
+                    
                     timeUpdate.Start();
                     break;
                 }
@@ -171,6 +180,37 @@ namespace MicroControl
                 lblConn.ForeColor = Color.Red;
             }
             timeUpdate.Start();
+        }
+        async void GetDataMicroInfo()
+        {
+            int i = 1;
+            int count = 2;
+            while (i <= count)
+            {
+
+                if (this.micro.IDMicro == i)
+                {
+                    var micro = await dataBase.GetMicroServer(i);
+                    this.micro = micro;
+                    txtStatus.Text = micro.StatusMicro.ToString();
+                    txtLastCommand.Text = micro.CommandMicro.ToString();
+                    lblConn.ForeColor = Color.Green;
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            if (i > count)
+            {
+                txtLog.AppendText("Erro ao atualizar dados!\n");
+            }
+            timeUpdate.Start();
+        }
+        private string GetPcName()
+        {
+            return System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
         }
     }
 }
