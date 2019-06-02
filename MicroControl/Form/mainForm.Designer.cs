@@ -32,18 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtMicroName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtLastCommand = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblHide = new System.Windows.Forms.Label();
-            this.lblDisconnect = new System.Windows.Forms.Label();
+            this.lblConn = new System.Windows.Forms.Label();
             this.timeUpdate = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMicroName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,26 +66,6 @@
             this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(79, 20);
             this.txtID.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Micro Name";
-            // 
-            // txtMicroName
-            // 
-            this.txtMicroName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMicroName.Location = new System.Drawing.Point(12, 27);
-            this.txtMicroName.Name = "txtMicroName";
-            this.txtMicroName.ReadOnly = true;
-            this.txtMicroName.Size = new System.Drawing.Size(192, 20);
-            this.txtMicroName.TabIndex = 1;
             // 
             // label3
             // 
@@ -139,17 +119,17 @@
             this.lblHide.Text = "Hide";
             this.lblHide.Click += new System.EventHandler(this.LblHide_Click);
             // 
-            // lblDisconnect
+            // lblConn
             // 
-            this.lblDisconnect.AutoSize = true;
-            this.lblDisconnect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblDisconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDisconnect.Location = new System.Drawing.Point(133, 7);
-            this.lblDisconnect.Name = "lblDisconnect";
-            this.lblDisconnect.Size = new System.Drawing.Size(71, 13);
-            this.lblDisconnect.TabIndex = 2;
-            this.lblDisconnect.Text = "Disconnect";
-            this.lblDisconnect.Click += new System.EventHandler(this.LblDisconnect_Click);
+            this.lblConn.AutoSize = true;
+            this.lblConn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblConn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConn.Location = new System.Drawing.Point(133, 7);
+            this.lblConn.Name = "lblConn";
+            this.lblConn.Size = new System.Drawing.Size(71, 13);
+            this.lblConn.TabIndex = 2;
+            this.lblConn.Text = "Disconnect";
+            this.lblConn.Click += new System.EventHandler(this.LblDisconnect_Click);
             // 
             // timeUpdate
             // 
@@ -184,13 +164,33 @@
             this.txtLog.Size = new System.Drawing.Size(101, 127);
             this.txtLog.TabIndex = 0;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 18);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Micro Name";
+            // 
+            // txtMicroName
+            // 
+            this.txtMicroName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMicroName.Location = new System.Drawing.Point(12, 27);
+            this.txtMicroName.Name = "txtMicroName";
+            this.txtMicroName.ReadOnly = true;
+            this.txtMicroName.Size = new System.Drawing.Size(192, 20);
+            this.txtMicroName.TabIndex = 1;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 208);
+            this.ClientSize = new System.Drawing.Size(216, 207);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lblDisconnect);
+            this.Controls.Add(this.lblConn);
             this.Controls.Add(this.lblHide);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.label4);
@@ -220,17 +220,17 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtID;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtMicroName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtLastCommand;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label lblHide;
-        private System.Windows.Forms.Label lblDisconnect;
+        private System.Windows.Forms.Label lblConn;
         private System.Windows.Forms.Timer timeUpdate;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtMicroName;
     }
 }

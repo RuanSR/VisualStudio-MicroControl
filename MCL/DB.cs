@@ -11,12 +11,18 @@ namespace MCL
     {
         DataTable dataTable;
         public Micro micro;
+        public DBInfo dbInfo;
         IFirebaseClient client;
         IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "0vHkKXJUSytcCXiHTBmPTBO49HWCxKcNqkVlXE6t",
             BasePath = "https://fir-csharp-f4422.firebaseio.com/"
         };
+
+        public DB()
+        {
+            ConnectServer();
+        }
 
         public bool ConnectServer()
         {
@@ -30,26 +36,16 @@ namespace MCL
                 return false;
             }
         }
-        public void GetAdminBase(string pass)
+        public async void InsertMicro(string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
         {
-            AdminBase adminBase = new AdminBase
-            {
-                SuperPass = pass
-            };
-        }
-        public async void InsertMicro(string IDMicro, string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
-        {
-            ConnectServer();
-            FirebaseResponse resp = await client.GetTaskAsync("Admin/db_info");
-            var db_info = resp.ResultAs<DBInfo>();
-
             var micro = new Micro
             {
-                IDMicro = (int.Parse(db_info.count.ToString())+1).ToString(),
+                IDMicro = dbInfo.count+1,
                 NameMicro = nomeMicro,
                 StatusMicro = statusMicro,
                 CommandMicro = commandMicro,
-                ComplementMicro = complementMicro
+                ComplementMicro = complementMicro,
+                ConnectedMicro = false
             };
 
             SetResponse response = await client.SetTaskAsync("Micro/" + micro.IDMicro, micro);
@@ -61,28 +57,17 @@ namespace MCL
             };
 
             SetResponse response1 = await client.SetTaskAsync("Admin/db_info", obj);
-
-            //var data = new Micro
-            //{
-            //    IDMicro = IDMicro,
-            //    NameMicro = nomeMicro,
-            //    StatusMicro = statusMicro,
-            //    CommandMicro = commandMicro,
-            //    ComplementMicro = complementMicro
-            //};
-            //SetResponse response = await client.SetTaskAsync("Micro/" + IDMicro, data);
-            //Micro result = response.ResultAs<Micro>();
         }
-        public async Task<Micro> GetMicroServer(string microName)
+        public async Task<Micro> GetMicroServer(int IDMicro)
         {
-            FirebaseResponse response = await client.GetTaskAsync("Micro/" + microName);
+            FirebaseResponse response = await client.GetTaskAsync("Micro/" + IDMicro);
             micro = response.ResultAs<Micro>();
             return micro;
         }
-        public async void UpdateMicro(string ID, Micro micro)
+        public async void UpdateMicro(Micro micro)
         {
             micro.CommandMicro = 0;
-            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
+            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
         public async void SendCommand(string ID, Micro micro)
         {
@@ -125,6 +110,13 @@ namespace MCL
                     throw;
                 }
             }
+        }
+        public async Task<DBInfo> GetDBInfo()
+        {
+            FirebaseResponse resp = await client.GetTaskAsync("Admin/db_info");
+            var db_info = resp.ResultAs<DBInfo>();
+            //this.dbInfo = db_info;
+            return db_info;
         }
     }
 }

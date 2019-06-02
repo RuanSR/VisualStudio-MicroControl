@@ -19,7 +19,7 @@ namespace MicroControl
             micro = new Micro();
             if (dataBase.ConnectServer())
             {
-                mainForm frm = new mainForm(txtMicroID.Text);
+                mainForm frm = new mainForm();
                 frm.Show();
                 this.Hide();
             }

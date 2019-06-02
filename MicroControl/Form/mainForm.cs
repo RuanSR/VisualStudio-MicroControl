@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using MCL;
 using MicroControl.Class;
 using System.Diagnostics;
-
+using System.Drawing;
 
 namespace MicroControl
 {
@@ -14,19 +14,19 @@ namespace MicroControl
         Command cmd = new Command();
         DB dataBase;
         Micro micro;
-        string microID;
-        public mainForm(string microID = null)
+        //string microID;
+        public mainForm()
         {
             InitializeComponent();
             dataBase = new DB();
-            this.microID = microID;
+            //this.microID = microID;
         }
             //SÁMERDA DEU TRABALHO!\\
         private void MainForm_Load(object sender, EventArgs e)
         {
             NotifyLoad();
-            LoadData();
-            timeUpdate.Start();
+            AutenticationServer();
+            //LoadData();
         }
         private async void LoadData()
         {
@@ -34,20 +34,20 @@ namespace MicroControl
             {
                 if (dataBase.ConnectServer())
                 {
-                    var micro = await dataBase.GetMicroServer(microID);
+                    var micro = await dataBase.GetMicroServer(1);
                     this.micro = micro;
                     this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
                     txtID.Text = micro.IDMicro.ToString(); ;
                     txtMicroName.Text = micro.NameMicro;
                     txtStatus.Text = micro.StatusMicro.ToString();
                     txtLastCommand.Text = micro.CommandMicro.ToString();
-                    initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, micro.CommandMicro));
+                    //initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, micro.CommandMicro));
                 }
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("Erro em LoadData: "+ex.Message);
-                dataBase.UpdateMicro(txtID.Text, micro);
+                dataBase.UpdateMicro(micro);
                 txtLog.AppendText("ERROR : CONNECTION \n"+ex.Message);
                 txtLastCommand.Text = "-" + micro.CommandMicro.ToString();
                 timeUpdate.Start();
@@ -58,40 +58,40 @@ namespace MicroControl
             try
             {
                 timeUpdate.Stop();
-                LoadData();
+                AutenticationServer();
 
                 if (micro.CommandMicro == 1)
                 {
                     cmd.SHUTDOWN();
-                    dataBase.UpdateMicro(txtID.Text, micro);
+                    dataBase.UpdateMicro(micro);
                 }
                 else if (micro.CommandMicro == 2)
                 {
                     cmd.SET_BG(micro.ComplementMicro, true);
-                    dataBase.UpdateMicro(txtID.Text, micro);
+                    dataBase.UpdateMicro(micro);
                 }
                 else if (micro.CommandMicro == 3)
                 {
                     MessageBox.Show(micro.ComplementMicro);
-                    dataBase.UpdateMicro(txtID.Text, micro);
+                    dataBase.UpdateMicro(micro);
                 }else if (micro.CommandMicro == 99)
                 {
                     using (Process initUpdate = new Process())
                     {
-                        dataBase.UpdateMicro(txtID.Text, micro);
+                        dataBase.UpdateMicro(micro);
                         initUpdate.StartInfo.FileName = pathSys.pathUpdateProcess;
                         initUpdate.StartInfo.CreateNoWindow = true;
                         initUpdate.Start();
                         Application.Exit();
                     }
                 }
-                initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, 0));
+                //initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, 0));
                 timeUpdate.Start();
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("Erro em ao passar comando! "+ex.Message);
-                dataBase.UpdateMicro(txtID.Text, micro);
+                dataBase.UpdateMicro(micro);
                 txtLog.AppendText("ERROR : COMMAND \n" + ex.Message);
                 txtLastCommand.Text = "-"+micro.CommandMicro.ToString();
                 timeUpdate.Start();
@@ -138,6 +138,39 @@ namespace MicroControl
             timeUpdate.Stop();
             System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
             new initForm().Show();
+        }
+
+        async void AutenticationServer()
+        {
+            int i = 1;
+            int count = 2;
+            while (i <= count)
+            {
+                var micro = await dataBase.GetMicroServer(i);
+                this.micro = micro;
+                if (!this.micro.ConnectedMicro)
+                {
+                    this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+                    txtID.Text = micro.IDMicro.ToString(); ;
+                    txtMicroName.Text = micro.NameMicro;
+                    txtStatus.Text = micro.StatusMicro.ToString();
+                    txtLastCommand.Text = micro.CommandMicro.ToString();
+                    lblConn.ForeColor = Color.Green;
+                    timeUpdate.Start();
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            if (i > count)
+            {
+                txtLog.AppendText("Nenhum espaço no servidor!\n");
+                lblConn.Text = "Connect";
+                lblConn.ForeColor = Color.Red;
+            }
+            timeUpdate.Start();
         }
     }
 }
