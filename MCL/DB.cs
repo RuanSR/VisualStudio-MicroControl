@@ -79,9 +79,9 @@ namespace MCL
         {
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
-        public async void SendCommand(string ID, Micro micro)
+        public async void SendCommand(Micro micro)
         {
-            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + ID, micro);
+            FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
         public DataTable GetAllMicro(DataTable dt)
         {

@@ -13,7 +13,6 @@ namespace MicroControlAdmin
             InitializeComponent();
             this.micro = micro;
         }
-
         private void FrmCommand_Load(object sender, System.EventArgs e)
         {
             if (dataBase.ConnectServer())
@@ -61,7 +60,7 @@ namespace MicroControlAdmin
                 if (txtComplement.Text != string.Empty)
                 {
                     micro.ComplementMicro = txtComplement.Text;
-                    dataBase.SendCommand(micro.IDMicro, micro);
+                    dataBase.SendCommand(micro);
                     MessageBox.Show("COMANDO ENVIADO!");
                 }
                 else
@@ -71,13 +70,13 @@ namespace MicroControlAdmin
             }
             else
             {
-                dataBase.SendCommand(micro.IDMicro, micro);
+                dataBase.SendCommand(micro);
                 MessageBox.Show("COMANDO ENVIADO!");
             }
         }
         private void LoadObjectMicro()
         {
-            txtMicroID.Text = micro.IDMicro;
+            txtMicroID.Text = micro.IDMicro.ToString();
             txtMicroName.Text = micro.NameMicro;
             txtMicroStatus.Text = micro.StatusMicro.ToString();
         }
@@ -87,7 +86,6 @@ namespace MicroControlAdmin
             cbCommands.Items.Add("ALTERAR PAPEL PAREDE");
             cbCommands.Items.Add("MANDAR MENSSAGEM");
         }
-
         string strfilename;
         private void TxtComplement_DoubleClick(object sender, System.EventArgs e)
         {
