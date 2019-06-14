@@ -5,7 +5,7 @@ using MicroControl.Class;
 using System.Diagnostics;
 using System.Drawing;
 using System.Management;
-using System.ComponentModel;
+
 namespace MicroControl
 {
     public partial class mainForm : Form
@@ -153,7 +153,6 @@ namespace MicroControl
                 {
                     var micro = await dataBase.GetMicroServer(i);
                     this.micro = micro;
-                    MessageBox.Show(GetSerialMicro());
                     if (this.micro.SerialLogin.Equals(GetSerialMicro()))
                     {
                         this.micro.NameMicro = GetPcName();
@@ -194,6 +193,10 @@ namespace MicroControl
             }
             timeUpdate.Start();
         }
+
+
+
+
         async void AutenticationServer()
         {
             //var db_info = await dataBase.GetIDServer();
@@ -238,10 +241,8 @@ namespace MicroControl
         async void GetDataMicroInfo()
         {
             int i = 1;
-            int count = 2;
-            while (i <= count)
+            while (i <= this.dbInfo.count)
             {
-
                 if (this.micro.IDMicro == i)
                 {
                     var micro = await dataBase.GetMicroServer(i);
@@ -256,7 +257,7 @@ namespace MicroControl
                     i++;
                 }
             }
-            if (i > count)
+            if (i > this.dbInfo.count)
             {
                 txtLog.AppendText("Erro ao atualizar dados!\n");
             }

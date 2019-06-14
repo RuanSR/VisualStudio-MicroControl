@@ -29,22 +29,25 @@ namespace MicroControlAdmin
         {
             selectedIndex = cbCommands.SelectedIndex;
             selectedIndex++;
-            if (selectedIndex == 1)
+            if (selectedIndex == 1)//DESLIGAR
             {
                 btnSender.Enabled = true;
                 groupComplement.Enabled = false;
+                groupTime.Visible = true;
                 micro.CommandMicro = selectedIndex;
             }
             else if (selectedIndex == 2)
             {
                 groupComplement.Enabled = true;
                 btnSender.Enabled = true;
+                groupTime.Visible = false;
                 micro.CommandMicro = selectedIndex;
             }
             else if (selectedIndex == 3)
             {
                 groupComplement.Enabled = true;
                 btnSender.Enabled = true;
+                groupTime.Visible = false;
                 micro.CommandMicro = selectedIndex;
             }
 
