@@ -24,7 +24,7 @@ namespace MicroControlAdmin
         {
             Micro micro = new Micro();
 
-            micro.IDMicro = gridViewMicro.Rows[e.RowIndex].Cells[0].Value.ToString();
+            micro.IDMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[0].Value.ToString());
             micro.NameMicro = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
             micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[2].Value.ToString());
             micro.CommandMicro = 0;

@@ -36,24 +36,24 @@ namespace MCL
                 return false;
             }
         }
-        public async void InsertMicro(string nomeMicro, int statusMicro, int commandMicro, string complementMicro)
+        public async void InsertMicro(Micro micro)
         {
-            var micro = new Micro
+            var newMicro = new Micro
             {
                 IDMicro = dbInfo.count+1,
-                NameMicro = nomeMicro,
-                StatusMicro = statusMicro,
-                CommandMicro = commandMicro,
-                ComplementMicro = complementMicro,
-                ConnectedMicro = false
+                SerialLogin = micro.SerialLogin,
+                NameMicro = micro.NameMicro,
+                StatusMicro = micro.StatusMicro,
+                CommandMicro = micro.CommandMicro,
+                ComplementMicro = micro.ComplementMicro
             };
 
-            SetResponse response = await client.SetTaskAsync("Micro/" + micro.IDMicro, micro);
+            SetResponse response = await client.SetTaskAsync("Micro/" + newMicro.IDMicro, newMicro);
             Micro result = response.ResultAs<Micro>();
 
             var obj = new DBInfo
             {
-                count = micro.IDMicro
+                count = newMicro.IDMicro
             };
 
             SetResponse response1 = await client.SetTaskAsync("Admin/db_info", obj);

@@ -4,7 +4,8 @@ using MCL;
 using MicroControl.Class;
 using System.Diagnostics;
 using System.Drawing;
-
+using System.Management;
+using System.ComponentModel;
 namespace MicroControl
 {
     public partial class mainForm : Form
@@ -27,7 +28,7 @@ namespace MicroControl
         private void MainForm_Load(object sender, EventArgs e)
         {
             NotifyLoad();
-            AutenticationServer();
+            AutenticationMicro();
         }
         private async void LoadData()
         {
@@ -140,46 +141,99 @@ namespace MicroControl
             System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
             new initForm().Show();
         }
-        async void AutenticationServer()
+        async void AutenticationMicro()
         {
             var db_info = await dataBase.GetIDServer();
             this.dbInfo = db_info;
-
             int i = 1;
             int count = dbInfo.count;
-            while (i <= count)
+            if (count > 0)
             {
-                var micro = await dataBase.GetMicroServer(i);
-                this.micro = micro;
-                if (!this.micro.ConnectedMicro)
+                while (i <= count)
                 {
-                    this.micro.NameMicro = GetPcName();
-                    this.micro.ConnectedMicro = true;
-                    dataBase.UpdateMicroInfo(this.micro);
+                    var micro = await dataBase.GetMicroServer(i);
+                    this.micro = micro;
+                    MessageBox.Show(GetSerialMicro());
+                    if (this.micro.SerialLogin.Equals(GetSerialMicro()))
+                    {
+                        this.micro.NameMicro = GetPcName();
+                        dataBase.UpdateMicroInfo(this.micro);
 
-                    this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
-                    txtID.Text = micro.IDMicro.ToString();
-                    txtMicroName.Text = micro.NameMicro;
-                    txtStatus.Text = micro.StatusMicro.ToString();
-                    txtLastCommand.Text = micro.CommandMicro.ToString();
-                    lblConn.ForeColor = Color.Green;
-                   
-                    
-                    timeUpdate.Start();
-                    break;
-                }
-                else
-                {
-                    i++;
+                        this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+                        txtID.Text = micro.IDMicro.ToString();
+                        txtMicroName.Text = micro.NameMicro;
+                        txtStatus.Text = micro.StatusMicro.ToString();
+                        txtLastCommand.Text = micro.CommandMicro.ToString();
+                        lblConn.ForeColor = Color.Green;
+
+                        timeUpdate.Start();
+                        break;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
             }
-            if (i > count)
+            if (i > count || count == 0)
             {
-                txtLog.AppendText("Nenhum espaço no servidor!\n");
-                lblConn.Text = "Connect";
-                lblConn.ForeColor = Color.Red;
+                Micro newMicro = new Micro
+                {
+                    IDMicro = count+1,
+                    SerialLogin = GetSerialMicro(),
+                    NameMicro = GetPcName(),
+                    StatusMicro = 0,
+                    CommandMicro = 0,
+                    ComplementMicro = "null"
+                };
+                dataBase.InsertMicro(newMicro);
+                AutenticationMicro();
+                //txtLog.AppendText("Nenhum espaço no servidor!\n");
+                //lblConn.Text = "Connect";
+                //lblConn.ForeColor = Color.Red;
             }
             timeUpdate.Start();
+        }
+        async void AutenticationServer()
+        {
+            //var db_info = await dataBase.GetIDServer();
+            //this.dbInfo = db_info;
+
+            //int i = 1;
+            //int count = dbInfo.count;
+            //while (i <= count)
+            //{
+            //    var micro = await dataBase.GetMicroServer(i);
+            //    this.micro = micro;
+            //    if (!this.micro.ConnectedMicro)
+            //    {
+            //        this.micro.NameMicro = GetPcName();
+            //        this.micro.ConnectedMicro = true;
+            //        dataBase.UpdateMicroInfo(this.micro);
+
+            //        this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+            //        txtID.Text = micro.IDMicro.ToString();
+            //        txtMicroName.Text = micro.NameMicro;
+            //        txtStatus.Text = micro.StatusMicro.ToString();
+            //        txtLastCommand.Text = micro.CommandMicro.ToString();
+            //        lblConn.ForeColor = Color.Green;
+
+
+            //        timeUpdate.Start();
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        i++;
+            //    }
+            //}
+            //if (i > count)
+            //{
+            //    txtLog.AppendText("Nenhum espaço no servidor!\n");
+            //    lblConn.Text = "Connect";
+            //    lblConn.ForeColor = Color.Red;
+            //}
+            //timeUpdate.Start();
         }
         async void GetDataMicroInfo()
         {
@@ -208,7 +262,17 @@ namespace MicroControl
             }
             timeUpdate.Start();
         }
-        private string GetPcName()
+        private string GetSerialMicro()
+        {
+            return GetSerialHD() + GetPcName();
+        }
+        string GetSerialHD()
+        {
+            ManagementObject dsk = new ManagementObject(@"win32_logicaldisk.deviceid=""c:""");
+            dsk.Get();
+            return dsk["VolumeSerialNumber"].ToString();
+        }
+        string GetPcName()
         {
             return System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
         }
