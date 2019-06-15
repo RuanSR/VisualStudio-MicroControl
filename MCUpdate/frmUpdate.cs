@@ -17,6 +17,7 @@ namespace MCUpdate
         public string newVersion;
         public string newVersionNameUpdate;
         public string fileLinkUpdate;
+        private string zipPath;
         public frmUpdate()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace MCUpdate
         {
             try
             {
-                string[] downData = { await client.GetStringAsync("https://pastebin.com/raw/C1bLqj8n") };
+                string[] downData = { await client.GetStringAsync("https://pastebin.com/raw/FPj8RfNH") };
                 string[] dataDown = null;
                 foreach (string data in downData)
                 {
@@ -72,6 +73,7 @@ namespace MCUpdate
             {
                 InstallUpdate();
                 System.Diagnostics.Process.Start(pathSys.pathAppProcess);
+                File.Delete(zipPath);
                 Application.Exit();
             }
             else
@@ -81,9 +83,10 @@ namespace MCUpdate
         }
         void InstallUpdate()
         {
-            string zipPath = pathSys.pathRootFolder + @"\" + "MicroControl_" + newVersion + ".zip";
+            zipPath = pathSys.pathRootFolder + @"\" + "MicroControl_" + newVersion + ".zip";
             string extractPath = pathSys.pathRootAppProcess;
-            File.Delete(pathSys.pathRootAppProcess);
+            Directory.Delete(pathSys.pathRootAppProcess,true);
+            //File.Delete(pathSys.pathRootAppProcess);
             Directory.CreateDirectory(extractPath);
             ZipFile.ExtractToDirectory(zipPath, extractPath);
         }
