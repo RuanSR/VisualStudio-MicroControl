@@ -64,7 +64,7 @@ namespace MicroControl
 
                 if (micro.CommandMicro == 1)
                 {
-                    cmd.SHUTDOWN();
+                    cmd.SHUTDOWN(micro.ComplementMicro);
                     dataBase.UpdateMicro(micro);
                 }
                 else if (micro.CommandMicro == 2)
@@ -193,10 +193,6 @@ namespace MicroControl
             }
             timeUpdate.Start();
         }
-
-
-
-
         async void AutenticationServer()
         {
             //var db_info = await dataBase.GetIDServer();

@@ -47,7 +47,7 @@ namespace MicroControl.Class
                 throw new Exception("Erro ao definir BG: "+ex.Message);
             }
         }
-        public void SHUTDOWN()
+        public void SHUTDOWN(string time)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace MicroControl.Class
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
-                process.StandardInput.WriteLine("shutdown -s -t 100");
+                process.StandardInput.WriteLine("shutdown -s -t "+time+"");
                 process.StandardInput.Flush();
                 process.StandardInput.Close();
                 process.WaitForExit();

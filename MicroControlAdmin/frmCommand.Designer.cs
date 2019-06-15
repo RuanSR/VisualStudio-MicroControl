@@ -40,8 +40,6 @@
             this.txtComplement = new System.Windows.Forms.TextBox();
             this.groupTime = new System.Windows.Forms.GroupBox();
             this.rbOption4 = new System.Windows.Forms.RadioButton();
-            this.rbOption3 = new System.Windows.Forms.RadioButton();
-            this.rbOption2 = new System.Windows.Forms.RadioButton();
             this.rbOption1 = new System.Windows.Forms.RadioButton();
             this.btnSender = new System.Windows.Forms.Button();
             this.cbCommands = new System.Windows.Forms.ComboBox();
@@ -163,8 +161,6 @@
             // groupTime
             // 
             this.groupTime.Controls.Add(this.rbOption4);
-            this.groupTime.Controls.Add(this.rbOption3);
-            this.groupTime.Controls.Add(this.rbOption2);
             this.groupTime.Controls.Add(this.rbOption1);
             this.groupTime.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupTime.Location = new System.Drawing.Point(3, 43);
@@ -178,35 +174,14 @@
             // rbOption4
             // 
             this.rbOption4.AutoSize = true;
-            this.rbOption4.Location = new System.Drawing.Point(204, 22);
+            this.rbOption4.Location = new System.Drawing.Point(59, 22);
             this.rbOption4.Name = "rbOption4";
             this.rbOption4.Size = new System.Drawing.Size(86, 20);
             this.rbOption4.TabIndex = 0;
             this.rbOption4.TabStop = true;
             this.rbOption4.Text = "Imediato";
             this.rbOption4.UseVisualStyleBackColor = true;
-            // 
-            // rbOption3
-            // 
-            this.rbOption3.AutoSize = true;
-            this.rbOption3.Location = new System.Drawing.Point(136, 22);
-            this.rbOption3.Name = "rbOption3";
-            this.rbOption3.Size = new System.Drawing.Size(49, 20);
-            this.rbOption3.TabIndex = 0;
-            this.rbOption3.TabStop = true;
-            this.rbOption3.Text = "10s";
-            this.rbOption3.UseVisualStyleBackColor = true;
-            // 
-            // rbOption2
-            // 
-            this.rbOption2.AutoSize = true;
-            this.rbOption2.Location = new System.Drawing.Point(69, 23);
-            this.rbOption2.Name = "rbOption2";
-            this.rbOption2.Size = new System.Drawing.Size(49, 20);
-            this.rbOption2.TabIndex = 0;
-            this.rbOption2.TabStop = true;
-            this.rbOption2.Text = "30s";
-            this.rbOption2.UseVisualStyleBackColor = true;
+            this.rbOption4.CheckedChanged += new System.EventHandler(this.SetRadioButtonOption);
             // 
             // rbOption1
             // 
@@ -218,6 +193,7 @@
             this.rbOption1.TabStop = true;
             this.rbOption1.Text = "1m";
             this.rbOption1.UseVisualStyleBackColor = true;
+            this.rbOption1.CheckedChanged += new System.EventHandler(this.SetRadioButtonOption);
             // 
             // btnSender
             // 
@@ -288,8 +264,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupTime;
         private System.Windows.Forms.RadioButton rbOption4;
-        private System.Windows.Forms.RadioButton rbOption3;
-        private System.Windows.Forms.RadioButton rbOption2;
         private System.Windows.Forms.RadioButton rbOption1;
     }
 }

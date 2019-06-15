@@ -7,6 +7,7 @@ namespace MicroControlAdmin
     {
         DB dataBase = new DB();
         Micro micro;
+        RadioButton rbOption;
         int selectedIndex;
         public frmCommand(Micro micro)
         {
@@ -36,18 +37,24 @@ namespace MicroControlAdmin
                 groupTime.Visible = true;
                 micro.CommandMicro = selectedIndex;
             }
-            else if (selectedIndex == 2)
+            else if (selectedIndex == 2)//BG
             {
+                rbOption = new RadioButton();
                 groupComplement.Enabled = true;
                 btnSender.Enabled = true;
                 groupTime.Visible = false;
+                rbOption.Checked = false;
+                rbOption = null;
                 micro.CommandMicro = selectedIndex;
             }
-            else if (selectedIndex == 3)
+            else if (selectedIndex == 3)//SEND MSG
             {
+                rbOption = new RadioButton();
                 groupComplement.Enabled = true;
                 btnSender.Enabled = true;
                 groupTime.Visible = false;
+                rbOption.Checked = false;
+                rbOption = null;
                 micro.CommandMicro = selectedIndex;
             }
 
@@ -55,6 +62,10 @@ namespace MicroControlAdmin
             {
                 micro.ComplementMicro = txtComplement.Text;
             }
+        }
+        private void SetRadioButtonOption(object sender, System.EventArgs e)
+        {
+            rbOption = (RadioButton)sender;
         }
         private void BtnSender_Click(object sender, System.EventArgs e)
         {
@@ -70,12 +81,47 @@ namespace MicroControlAdmin
                 {
                     MessageBox.Show("PREENCHA O CAMPO COMPLEMENT!");
                 }
+            }else if (groupTime.Visible)
+            {
+                if (rbOption.Checked)
+                {
+                    micro.ComplementMicro = CheckRadioButtonOption();
+                    dataBase.SendCommand(micro);
+                    MessageBox.Show("COMANDO ENVIADO!");
+                }
+                else
+                {
+                    MessageBox.Show("MARQUE UMA OPÇÃO EM TIME");
+                }
             }
             else
             {
                 dataBase.SendCommand(micro);
                 MessageBox.Show("COMANDO ENVIADO!");
             }
+        }
+        private string CheckRadioButtonOption()
+        {
+            string r;
+            switch (rbOption.Text)
+            {
+                case "1m":
+                    r = "60";
+                    break;
+                case "30s":
+                    r = "0,166667";
+                    break;
+                case "10s":
+                    r = "";
+                    break;
+                case "Imediato":
+                    r = "0";
+                    break;
+                default:
+                    r = "0";
+                    break;
+            }
+            return r;
         }
         private void LoadObjectMicro()
         {
