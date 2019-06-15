@@ -25,8 +25,10 @@ namespace MicroControlAdmin
             Micro micro = new Micro();
 
             micro.IDMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[0].Value.ToString());
-            micro.NameMicro = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
-            micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[2].Value.ToString());
+            micro.SerialLogin = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+            micro.NameMicro = gridViewMicro.Rows[e.RowIndex].Cells[2].Value.ToString();
+            micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[3].Value.ToString());
             micro.CommandMicro = 0;
             micro.ComplementMicro = "null";
             new frmCommand(micro).ShowDialog();
@@ -34,8 +36,11 @@ namespace MicroControlAdmin
         private void LoadDataGridView()
         {
             dt.Columns.Add("ID");
+            dt.Columns.Add("Login");
             dt.Columns.Add("Micro");
             dt.Columns.Add("Status");
+            dt.Columns.Add("Command");
+            dt.Columns.Add("Complement");
 
             gridViewMicro.DataSource = dt;
         }

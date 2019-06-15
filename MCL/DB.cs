@@ -110,8 +110,12 @@ namespace MCL
 
                     DataRow row = dataTable.NewRow();
                     row["ID"] = micro.IDMicro;
+                    row["Login"] = micro.SerialLogin;
                     row["Micro"] = micro.NameMicro;
                     row["Status"] = micro.StatusMicro;
+                    row["Command"] = micro.CommandMicro;
+                    row["Complement"] = micro.ComplementMicro;
+
 
                     dataTable.Rows.Add(row);
                 }
