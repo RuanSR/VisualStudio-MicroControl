@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCommandAll = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridViewMicro = new System.Windows.Forms.DataGridView();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnCommandAll = new System.Windows.Forms.Button();
+            this.btnCleanerDB = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMicro)).BeginInit();
@@ -41,6 +42,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnCommandAll);
+            this.groupBox1.Controls.Add(this.btnCleanerDB);
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -50,6 +52,28 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OPTIONS";
+            // 
+            // btnCommandAll
+            // 
+            this.btnCommandAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCommandAll.Location = new System.Drawing.Point(124, 18);
+            this.btnCommandAll.Name = "btnCommandAll";
+            this.btnCommandAll.Size = new System.Drawing.Size(147, 23);
+            this.btnCommandAll.TabIndex = 0;
+            this.btnCommandAll.Text = "COMMAND ALL";
+            this.btnCommandAll.UseVisualStyleBackColor = true;
+            this.btnCommandAll.Click += new System.EventHandler(this.BtnCommandAll_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Location = new System.Drawing.Point(6, 18);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(98, 23);
+            this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.Text = "UPDATE";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // groupBox2
             // 
@@ -78,27 +102,17 @@
             this.gridViewMicro.TabIndex = 0;
             this.gridViewMicro.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewMicro_CellContentClick);
             // 
-            // btnUpdate
+            // btnCleanerDB
             // 
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.Location = new System.Drawing.Point(6, 18);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(98, 23);
-            this.btnUpdate.TabIndex = 0;
-            this.btnUpdate.Text = "UPDATE";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
-            // 
-            // btnCommandAll
-            // 
-            this.btnCommandAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCommandAll.Location = new System.Drawing.Point(110, 18);
-            this.btnCommandAll.Name = "btnCommandAll";
-            this.btnCommandAll.Size = new System.Drawing.Size(147, 23);
-            this.btnCommandAll.TabIndex = 0;
-            this.btnCommandAll.Text = "COMMAND ALL";
-            this.btnCommandAll.UseVisualStyleBackColor = true;
-            this.btnCommandAll.Click += new System.EventHandler(this.BtnCommandAll_Click);
+            this.btnCleanerDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanerDB.ForeColor = System.Drawing.Color.DarkRed;
+            this.btnCleanerDB.Location = new System.Drawing.Point(291, 18);
+            this.btnCleanerDB.Name = "btnCleanerDB";
+            this.btnCleanerDB.Size = new System.Drawing.Size(98, 23);
+            this.btnCleanerDB.TabIndex = 0;
+            this.btnCleanerDB.Text = "CLEANER";
+            this.btnCleanerDB.UseVisualStyleBackColor = true;
+            this.btnCleanerDB.Click += new System.EventHandler(this.BtnCleanerDB_Click);
             // 
             // frmPrincipal
             // 
@@ -127,6 +141,7 @@
         private System.Windows.Forms.DataGridView gridViewMicro;
         private System.Windows.Forms.Button btnCommandAll;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnCleanerDB;
     }
 }
 

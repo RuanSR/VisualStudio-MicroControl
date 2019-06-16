@@ -110,7 +110,7 @@ namespace MCL
 
                     DataRow row = dataTable.NewRow();
                     row["ID"] = micro.IDMicro;
-                    row["Login"] = micro.SerialLogin;
+                    row["Serial"] = micro.SerialLogin;
                     row["Micro"] = micro.NameMicro;
                     row["Status"] = micro.StatusMicro;
                     row["Command"] = micro.CommandMicro;
@@ -131,6 +131,17 @@ namespace MCL
             var db_info = resp.ResultAs<DBInfo>();
             dbInfo = db_info;
             return dbInfo;
+        }
+
+        public async void DeleteAll()
+        {
+            FirebaseResponse response = await client.DeleteTaskAsync("Micro");
+            var obj = new DBInfo
+            {
+                count = 0
+            };
+
+            SetResponse response1 = await client.SetTaskAsync("Admin/db_info", obj);
         }
     }
 }
