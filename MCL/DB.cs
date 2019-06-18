@@ -73,6 +73,7 @@ namespace MCL
         public async void UpdateMicro(Micro micro)
         {
             micro.CommandMicro = 0;
+            micro.StatusMicro = 1;
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
         public async void UpdateMicroInfo(Micro micro)
@@ -108,16 +109,20 @@ namespace MCL
                     FirebaseResponse resp2 = await client.GetTaskAsync("Micro/" + i);
                     Micro micro = resp2.ResultAs<Micro>();
 
-                    DataRow row = dataTable.NewRow();
-                    row["ID"] = micro.IDMicro;
-                    row["Serial"] = micro.SerialLogin;
-                    row["Micro"] = micro.NameMicro;
-                    row["Status"] = micro.StatusMicro;
-                    row["Command"] = micro.CommandMicro;
-                    row["Complement"] = micro.ComplementMicro;
-
-
-                    dataTable.Rows.Add(row);
+                    if (micro.StatusMicro == 1)
+                    {
+                        DataRow row = dataTable.NewRow();
+                        row["ID"] = micro.IDMicro;
+                        row["Serial"] = micro.SerialLogin;
+                        row["Micro"] = micro.NameMicro;
+                        row["Status"] = "Online";
+                        row["Command"] = micro.CommandMicro;
+                        row["Complement"] = micro.ComplementMicro;
+                        dataTable.Rows.Add(row);
+                        micro.StatusMicro = 0;
+                        UpdateMicro(micro);
+                    }
+                    
                 }
                 catch (Exception)
                 {

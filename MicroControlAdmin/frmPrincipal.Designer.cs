@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnCommandAll = new System.Windows.Forms.Button();
+            this.btnCleanerDB = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridViewMicro = new System.Windows.Forms.DataGridView();
-            this.btnCleanerDB = new System.Windows.Forms.Button();
+            this.timerSync = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMicro)).BeginInit();
@@ -63,6 +65,18 @@
             this.btnCommandAll.Text = "COMMAND ALL";
             this.btnCommandAll.UseVisualStyleBackColor = true;
             this.btnCommandAll.Click += new System.EventHandler(this.BtnCommandAll_Click);
+            // 
+            // btnCleanerDB
+            // 
+            this.btnCleanerDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanerDB.ForeColor = System.Drawing.Color.DarkRed;
+            this.btnCleanerDB.Location = new System.Drawing.Point(291, 18);
+            this.btnCleanerDB.Name = "btnCleanerDB";
+            this.btnCleanerDB.Size = new System.Drawing.Size(98, 23);
+            this.btnCleanerDB.TabIndex = 0;
+            this.btnCleanerDB.Text = "CLEANER";
+            this.btnCleanerDB.UseVisualStyleBackColor = true;
+            this.btnCleanerDB.Click += new System.EventHandler(this.BtnCleanerDB_Click);
             // 
             // btnUpdate
             // 
@@ -102,17 +116,11 @@
             this.gridViewMicro.TabIndex = 0;
             this.gridViewMicro.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewMicro_CellContentClick);
             // 
-            // btnCleanerDB
+            // timerSync
             // 
-            this.btnCleanerDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCleanerDB.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnCleanerDB.Location = new System.Drawing.Point(291, 18);
-            this.btnCleanerDB.Name = "btnCleanerDB";
-            this.btnCleanerDB.Size = new System.Drawing.Size(98, 23);
-            this.btnCleanerDB.TabIndex = 0;
-            this.btnCleanerDB.Text = "CLEANER";
-            this.btnCleanerDB.UseVisualStyleBackColor = true;
-            this.btnCleanerDB.Click += new System.EventHandler(this.BtnCleanerDB_Click);
+            this.timerSync.Enabled = true;
+            this.timerSync.Interval = 20000;
+            this.timerSync.Tick += new System.EventHandler(this.TimerSync_Tick);
             // 
             // frmPrincipal
             // 
@@ -142,6 +150,7 @@
         private System.Windows.Forms.Button btnCommandAll;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnCleanerDB;
+        private System.Windows.Forms.Timer timerSync;
     }
 }
 

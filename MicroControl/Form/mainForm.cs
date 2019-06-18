@@ -57,26 +57,28 @@ namespace MicroControl
         }
         private void TimeUpdate_Tick(object sender, EventArgs e)
         {
+            
+            timeUpdate.Stop();
+            //timerSync.Stop();
             try
             {
-                timeUpdate.Stop();
                 GetDataMicroInfo();
-
                 if (micro.CommandMicro == 1)
                 {
                     cmd.SHUTDOWN(micro.ComplementMicro);
-                    dataBase.UpdateMicro(micro);
+                    //dataBase.UpdateMicro(micro);
                 }
                 else if (micro.CommandMicro == 2)
                 {
                     cmd.SET_BG(micro.ComplementMicro, true);
-                    dataBase.UpdateMicro(micro);
+                    //dataBase.UpdateMicro(micro);
                 }
                 else if (micro.CommandMicro == 3)
                 {
+                    //dataBase.UpdateMicro(micro);
                     MessageBox.Show(micro.ComplementMicro);
-                    dataBase.UpdateMicro(micro);
-                }else if (micro.CommandMicro == 99)
+                }
+                else if (micro.CommandMicro == 99)
                 {
                     using (Process initUpdate = new Process())
                     {
@@ -88,7 +90,10 @@ namespace MicroControl
                     }
                 }
                 //initializing.WriteDataLogin(string.Format("{0}|{1}|{2}|{3}", micro.IDMicro, micro.NameMicro, micro.StatusMicro, 0));
+                dataBase.UpdateMicro(micro);
+                //SyncStatus();
                 timeUpdate.Start();
+                //timerSync.Start();
             }
             catch (Exception ex)
             {
@@ -96,7 +101,9 @@ namespace MicroControl
                 dataBase.UpdateMicro(micro);
                 txtLog.AppendText("ERROR : COMMAND \n" + ex.Message);
                 txtLastCommand.Text = "-"+micro.CommandMicro.ToString();
+                //SyncStatus();
                 timeUpdate.Start();
+                
             }
         }
         private void NotifyLoad()
@@ -141,6 +148,11 @@ namespace MicroControl
             System.IO.File.WriteAllText(pathSys.pathSettingsFile, "0|0|0|null");
             new initForm().Show();
         }
+        private void SyncStatus()
+        {
+            micro.StatusMicro = 1;
+            dataBase.UpdateMicro(micro);
+        }
         async void AutenticationMicro()
         {
             var db_info = await dataBase.GetIDServer();
@@ -155,6 +167,7 @@ namespace MicroControl
                     this.micro = micro;
                     if (this.micro.SerialLogin.Equals(GetSerialMicro()))
                     {
+                        //SyncStatus();
                         this.micro.NameMicro = GetPcName();
                         dataBase.UpdateMicroInfo(this.micro);
 
@@ -164,7 +177,6 @@ namespace MicroControl
                         txtStatus.Text = micro.StatusMicro.ToString();
                         txtLastCommand.Text = micro.CommandMicro.ToString();
                         lblConn.ForeColor = Color.Green;
-
                         timeUpdate.Start();
                         break;
                     }
@@ -272,6 +284,11 @@ namespace MicroControl
         string GetPcName()
         {
             return System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+        }
+
+        private void TimerSync_Tick(object sender, EventArgs e)
+        {
+            //SyncStatus();
         }
     }
 }

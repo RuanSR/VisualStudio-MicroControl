@@ -28,9 +28,13 @@ namespace MicroControlAdmin
             micro.SerialLogin = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
 
             micro.NameMicro = gridViewMicro.Rows[e.RowIndex].Cells[2].Value.ToString();
-            micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[3].Value.ToString());
+            //micro.StatusMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[3].Value.ToString());
             micro.CommandMicro = 0;
             micro.ComplementMicro = "null";
+            if (gridViewMicro.Rows[e.RowIndex].Cells[3].Value.ToString() == "Online")
+            {
+                micro.StatusMicro = 1;
+            }
             new frmCommand(micro).ShowDialog();
         }
         private void LoadDataGridView()
@@ -55,7 +59,6 @@ namespace MicroControlAdmin
         private void LoadMicro()
         {
             dataBase = new DB();
-            dataBase.ConnectServer();
             dt.Clear();
             dt = dataBase.GetAllMicro(dt);
         }
@@ -76,6 +79,11 @@ namespace MicroControlAdmin
             {
                 dataBase.DeleteAll();
             }
+        }
+
+        private void TimerSync_Tick(object sender, EventArgs e)
+        {
+            LoadMicro();
         }
     }
 }
