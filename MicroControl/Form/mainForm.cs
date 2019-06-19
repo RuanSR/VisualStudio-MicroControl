@@ -38,7 +38,7 @@ namespace MicroControl
                 {
                     var micro = await dataBase.GetMicroServer(1);
                     this.micro = micro;
-                    this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+                    this.Text = ":: " + micro.NameMicro.ToUpper() + " :: BETA 1T";
                     txtID.Text = micro.IDMicro.ToString(); ;
                     txtMicroName.Text = micro.NameMicro;
                     txtStatus.Text = micro.StatusMicro.ToString();
@@ -171,7 +171,7 @@ namespace MicroControl
                         this.micro.NameMicro = GetPcName();
                         dataBase.UpdateMicroInfo(this.micro);
 
-                        this.Text = ":: " + micro.NameMicro.ToUpper() + " ::";
+                        this.Text = ":: " + micro.NameMicro.ToUpper() + " :: BETATESTE1";
                         txtID.Text = micro.IDMicro.ToString();
                         txtMicroName.Text = micro.NameMicro;
                         txtStatus.Text = micro.StatusMicro.ToString();
@@ -283,7 +283,7 @@ namespace MicroControl
         }
         string GetPcName()
         {
-            return System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+            return Environment.UserName;
         }
 
         private void TimerSync_Tick(object sender, EventArgs e)
