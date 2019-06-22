@@ -1,5 +1,6 @@
 ﻿using MCL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
@@ -8,7 +9,7 @@ namespace MicroControlAdmin
     public partial class frmPrincipal : Form
     {
         DB dataBase;
-
+        Micro micro = new Micro();
         DataTable dt = new DataTable();
         public frmPrincipal()
         {
@@ -18,12 +19,11 @@ namespace MicroControlAdmin
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             LoadDataGridView();
-            LoadMicro();
+            LoadListMicro();
+            //LoadMicro();
         }
         private void GridViewMicro_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            Micro micro = new Micro();
-
             micro.IDMicro = int.Parse(gridViewMicro.Rows[e.RowIndex].Cells[0].Value.ToString());
             micro.SerialLogin = gridViewMicro.Rows[e.RowIndex].Cells[1].Value.ToString();
 
@@ -62,17 +62,32 @@ namespace MicroControlAdmin
             dt.Clear();
             dt = dataBase.GetAllMicro(dt);
         }
+        private void LoadListMicro()
+        {
+            dataBase = new DB();
+            dt.Clear();
+            List<Micro> listMicro = dataBase.GetAllMicro2();
+            for (int i = 0; i != listMicro.Count; i++)
+            {
+                DataRow row = dt.NewRow();
+                row["ID"] = micro.IDMicro;
+                row["Serial"] = micro.SerialLogin;
+                row["Micro"] = micro.NameMicro;
+                row["Status"] = "Online";
+                row["Command"] = micro.CommandMicro;
+                row["Complement"] = micro.ComplementMicro;
+                dt.Rows.Add(row);
+            }
+        }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             LoadMicro();
         }
-
         private void BtnCommandAll_Click(object sender, EventArgs e)
         {
-
+            new frmCommand(micro,"advanced").ShowDialog();
         }
-
         private void BtnCleanerDB_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("QUER MESMO ZERAR A BASE DE DADOS?","ATENÇÃO!",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
@@ -80,7 +95,6 @@ namespace MicroControlAdmin
                 dataBase.DeleteAll();
             }
         }
-
         private void TimerSync_Tick(object sender, EventArgs e)
         {
             LoadMicro();

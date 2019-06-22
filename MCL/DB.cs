@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
@@ -10,6 +11,7 @@ namespace MCL
     public class DB
     {
         DataTable dataTable;
+        List<Micro> listMicro = new List<Micro>();
         public Micro micro;
         public DBInfo dbInfo;
         IFirebaseClient client;
@@ -73,7 +75,6 @@ namespace MCL
         public async void UpdateMicro(Micro micro)
         {
             micro.CommandMicro = 0;
-            micro.StatusMicro = 1;
             FirebaseResponse response = await client.UpdateTaskAsync("Micro/" + micro.IDMicro, micro);
         }
         public async void UpdateMicroInfo(Micro micro)
@@ -89,6 +90,11 @@ namespace MCL
             this.dataTable = dt;
             LoadAllMicro();
             return dt;
+        }
+        public List<Micro> GetAllMicro2()
+        {
+            LoadAllMicro2();
+            return listMicro;
         }
         private async void LoadAllMicro()
         {
@@ -122,7 +128,38 @@ namespace MCL
                         micro.StatusMicro = 0;
                         UpdateMicro(micro);
                     }
-                    
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+        private async void LoadAllMicro2()
+        {
+            int i = 0;
+            FirebaseResponse resp1 = await client.GetTaskAsync("Admin/db_info");
+            DBInfo db_info = resp1.ResultAs<DBInfo>();
+            int cnt = Convert.ToInt32(db_info.count);
+
+            while (true)
+            {
+                if (i == cnt)
+                {
+                    break;
+                }
+                i++;
+                try
+                {
+                    FirebaseResponse resp2 = await client.GetTaskAsync("Micro/" + i);
+                    Micro micro = resp2.ResultAs<Micro>();
+
+                    if (micro.StatusMicro == 1)
+                    {
+                        listMicro.Add(micro);
+                        micro.StatusMicro = 0;
+                        UpdateMicro(micro);
+                    }
                 }
                 catch (Exception)
                 {

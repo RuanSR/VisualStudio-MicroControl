@@ -9,10 +9,21 @@ namespace MicroControlAdmin
         Micro micro;
         RadioButton rbOption;
         int selectedIndex;
-        public frmCommand(Micro micro)
+        string[] typeCommand = new string[] { "simple","advanced" };
+        public frmCommand(Micro micro, string typeCommand = "simple")
         {
             InitializeComponent();
             this.micro = micro;
+            if (typeCommand == this.typeCommand[0])
+            {
+                groupAdvanced.Visible = false;
+                groubMicro.Visible = true;
+            }
+            else
+            {
+                groupAdvanced.Visible = true;
+                groubMicro.Visible = false;
+            }
         }
         private void FrmCommand_Load(object sender, System.EventArgs e)
         {
