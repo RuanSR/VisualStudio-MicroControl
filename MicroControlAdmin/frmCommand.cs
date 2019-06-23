@@ -1,4 +1,5 @@
 ﻿using MCL;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace MicroControlAdmin
@@ -9,8 +10,9 @@ namespace MicroControlAdmin
         Micro micro;
         RadioButton rbOption;
         int selectedIndex;
+        List<Micro> listMicro;
         string[] typeCommand = new string[] { "simple","advanced" };
-        public frmCommand(Micro micro, string typeCommand = "simple")
+        public frmCommand(Micro micro,List<Micro> listMicro = null, string typeCommand = "simple")
         {
             InitializeComponent();
             this.micro = micro;
@@ -21,8 +23,23 @@ namespace MicroControlAdmin
             }
             else
             {
+                this.listMicro = listMicro;
                 groupAdvanced.Visible = true;
                 groubMicro.Visible = false;
+
+                for (int i = 0; i != listMicro.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        checkListMicro.Items.Add("ALL");
+                        checkListMicro.Items.Add(listMicro[i].NameMicro);
+                    }
+                    else
+                    {
+                        this.checkListMicro.Items.Add(listMicro[i].NameMicro);
+                    }
+                    
+                }
             }
         }
         private void FrmCommand_Load(object sender, System.EventArgs e)
@@ -157,6 +174,31 @@ namespace MicroControlAdmin
                     strfilename = openFileDialog1.InitialDirectory + openFileDialog1.FileName;
                 }
                 txtComplement.Text = strfilename;
+            }
+        }
+
+        private void CheckListMicro_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (checkListMicro.SelectedIndex == 0)
+            {
+                if (checkListMicro.GetItemChecked(0))
+                {
+                    for (int i = 1; i != listMicro.Count + 1; i++)
+                    {
+                        checkListMicro.SetItemCheckState(i, CheckState.Checked);
+                    }
+                }
+                else if(!checkListMicro.GetItemChecked(0))
+                {
+                    for (int i = listMicro.Count; i != 0; i--)
+                    {
+                        checkListMicro.SetItemCheckState(i, CheckState.Unchecked);
+                    }
+                }
+            }
+            else
+            {
+                checkListMicro.SetItemCheckState(0, CheckState.Unchecked);
             }
         }
     }

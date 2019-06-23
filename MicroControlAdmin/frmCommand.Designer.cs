@@ -45,7 +45,7 @@
             this.cbCommands = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupAdvanced = new System.Windows.Forms.GroupBox();
-            this.listMicro = new System.Windows.Forms.CheckedListBox();
+            this.checkListMicro = new System.Windows.Forms.CheckedListBox();
             this.groubMicro.SuspendLayout();
             this.groupCommand.SuspendLayout();
             this.groupComplement.SuspendLayout();
@@ -126,15 +126,15 @@
             // 
             // groupCommand
             // 
+            this.groupCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.groupCommand.Controls.Add(this.groupComplement);
             this.groupCommand.Controls.Add(this.groupTime);
             this.groupCommand.Controls.Add(this.btnSender);
             this.groupCommand.Controls.Add(this.cbCommands);
-            this.groupCommand.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupCommand.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupCommand.Location = new System.Drawing.Point(0, 266);
+            this.groupCommand.Location = new System.Drawing.Point(0, 256);
             this.groupCommand.Name = "groupCommand";
-            this.groupCommand.Size = new System.Drawing.Size(305, 125);
+            this.groupCommand.Size = new System.Drawing.Size(305, 135);
             this.groupCommand.TabIndex = 2;
             this.groupCommand.TabStop = false;
             this.groupCommand.Text = "COMMAND";
@@ -146,7 +146,7 @@
             this.groupComplement.Enabled = false;
             this.groupComplement.Location = new System.Drawing.Point(3, 94);
             this.groupComplement.Name = "groupComplement";
-            this.groupComplement.Size = new System.Drawing.Size(299, 5);
+            this.groupComplement.Size = new System.Drawing.Size(299, 15);
             this.groupComplement.TabIndex = 1;
             this.groupComplement.TabStop = false;
             this.groupComplement.Text = "COMPLEMENT";
@@ -202,7 +202,7 @@
             // 
             this.btnSender.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnSender.Enabled = false;
-            this.btnSender.Location = new System.Drawing.Point(3, 99);
+            this.btnSender.Location = new System.Drawing.Point(3, 109);
             this.btnSender.Name = "btnSender";
             this.btnSender.Size = new System.Drawing.Size(299, 23);
             this.btnSender.TabIndex = 1;
@@ -227,25 +227,27 @@
             // 
             // groupAdvanced
             // 
-            this.groupAdvanced.Controls.Add(this.listMicro);
-            this.groupAdvanced.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupAdvanced.Controls.Add(this.checkListMicro);
+            this.groupAdvanced.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupAdvanced.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupAdvanced.Location = new System.Drawing.Point(0, 170);
             this.groupAdvanced.Name = "groupAdvanced";
-            this.groupAdvanced.Size = new System.Drawing.Size(305, 221);
+            this.groupAdvanced.Size = new System.Drawing.Size(305, 96);
             this.groupAdvanced.TabIndex = 3;
             this.groupAdvanced.TabStop = false;
             this.groupAdvanced.Text = "MICROs";
             this.groupAdvanced.Visible = false;
             // 
-            // listMicro
+            // checkListMicro
             // 
-            this.listMicro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listMicro.FormattingEnabled = true;
-            this.listMicro.Location = new System.Drawing.Point(3, 19);
-            this.listMicro.Name = "listMicro";
-            this.listMicro.Size = new System.Drawing.Size(299, 199);
-            this.listMicro.TabIndex = 0;
+            this.checkListMicro.CheckOnClick = true;
+            this.checkListMicro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkListMicro.FormattingEnabled = true;
+            this.checkListMicro.Location = new System.Drawing.Point(3, 19);
+            this.checkListMicro.Name = "checkListMicro";
+            this.checkListMicro.Size = new System.Drawing.Size(299, 74);
+            this.checkListMicro.TabIndex = 0;
+            this.checkListMicro.SelectedIndexChanged += new System.EventHandler(this.CheckListMicro_SelectedIndexChanged);
             // 
             // frmCommand
             // 
@@ -293,6 +295,6 @@
         private System.Windows.Forms.RadioButton rbOption4;
         private System.Windows.Forms.RadioButton rbOption1;
         private System.Windows.Forms.GroupBox groupAdvanced;
-        private System.Windows.Forms.CheckedListBox listMicro;
+        private System.Windows.Forms.CheckedListBox checkListMicro;
     }
 }

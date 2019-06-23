@@ -8,19 +8,20 @@ namespace MicroControlAdmin
 {
     public partial class frmPrincipal : Form
     {
-        DB dataBase;
+        DB dataBase = new DB();
         Micro micro = new Micro();
         DataTable dt = new DataTable();
+        List<Micro> listMicro = new List<Micro>();
         public frmPrincipal()
         {
             InitializeComponent();
         }
 
-        private void FrmPrincipal_Load(object sender, EventArgs e)
+        private async void FrmPrincipal_Load(object sender, EventArgs e)
         {
+            listMicro = await dataBase.LoadListMicro();
             LoadDataGridView();
-            LoadListMicro();
-            //LoadMicro();
+            LoadGridView();
         }
         private void GridViewMicro_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -62,31 +63,29 @@ namespace MicroControlAdmin
             dt.Clear();
             dt = dataBase.GetAllMicro(dt);
         }
-        private void LoadListMicro()
+        private void LoadGridView()
         {
-            dataBase = new DB();
             dt.Clear();
-            List<Micro> listMicro = dataBase.GetAllMicro2();
             for (int i = 0; i != listMicro.Count; i++)
             {
                 DataRow row = dt.NewRow();
-                row["ID"] = micro.IDMicro;
-                row["Serial"] = micro.SerialLogin;
-                row["Micro"] = micro.NameMicro;
+                row["ID"] = listMicro[i].IDMicro;
+                row["Serial"] = listMicro[i].SerialLogin;
+                row["Micro"] = listMicro[i].NameMicro;
                 row["Status"] = "Online";
-                row["Command"] = micro.CommandMicro;
-                row["Complement"] = micro.ComplementMicro;
+                row["Command"] = listMicro[i].CommandMicro;
+                row["Complement"] = listMicro[i].ComplementMicro;
                 dt.Rows.Add(row);
             }
         }
-
-        private void BtnUpdate_Click(object sender, EventArgs e)
+        private async void BtnUpdate_Click(object sender, EventArgs e)
         {
-            LoadMicro();
+            listMicro = await dataBase.LoadListMicro();
+            LoadGridView();
         }
         private void BtnCommandAll_Click(object sender, EventArgs e)
         {
-            new frmCommand(micro,"advanced").ShowDialog();
+            new frmCommand(micro,listMicro,"advanced").ShowDialog();
         }
         private void BtnCleanerDB_Click(object sender, EventArgs e)
         {
@@ -97,7 +96,7 @@ namespace MicroControlAdmin
         }
         private void TimerSync_Tick(object sender, EventArgs e)
         {
-            LoadMicro();
+
         }
     }
 }

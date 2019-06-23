@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using System.Windows.Forms;
 
 namespace MCL
 {
     public class DB
     {
         DataTable dataTable;
-        List<Micro> listMicro = new List<Micro>();
+        public List<Micro> listMicro = new List<Micro>();
         public Micro micro;
         public DBInfo dbInfo;
         IFirebaseClient client;
@@ -91,11 +92,6 @@ namespace MCL
             LoadAllMicro();
             return dt;
         }
-        public List<Micro> GetAllMicro2()
-        {
-            LoadAllMicro2();
-            return listMicro;
-        }
         private async void LoadAllMicro()
         {
             int i = 0;
@@ -135,7 +131,7 @@ namespace MCL
                 }
             }
         }
-        private async void LoadAllMicro2()
+        public async Task<List<Micro>> LoadListMicro()
         {
             int i = 0;
             FirebaseResponse resp1 = await client.GetTaskAsync("Admin/db_info");
@@ -166,6 +162,7 @@ namespace MCL
                     throw;
                 }
             }
+            return listMicro;
         }
         public async Task<DBInfo> GetDBInfo(DBInfo dbInfo)
         {

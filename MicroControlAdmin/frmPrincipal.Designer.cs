@@ -118,7 +118,6 @@
             // 
             // timerSync
             // 
-            this.timerSync.Enabled = true;
             this.timerSync.Interval = 20000;
             this.timerSync.Tick += new System.EventHandler(this.TimerSync_Tick);
             // 
